@@ -1,0 +1,56 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>度量什么，就得到什么</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>四个该看的指标，五个最常踩的坑</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 620, height: 490, flexDirection: 'column', gap: 12 }}>
+    {[
+      { k: '采纳率', d: 'AI 产出被保留的比例。行业参照：建信金科代码智能生成采纳率超 30%。', v: '看产出质量' },
+      { k: '返工率', d: 'AI 产出被打回重做的平均轮次，直接反映简报与规则文件的质量。', v: '看过程成本' },
+      { k: '缺陷密度', d: 'AI 参与代码的千行缺陷数，对照纯人工基线——守住质量红线。', v: '看质量底线' },
+      { k: '端到端时长', d: '需求到上线的周期变化，这才是老板视角的真实收益。', v: '看业务结果' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderLeft: '4px solid #4C8DFF', borderRadius: 10, padding: '12px 22px', flexDirection: 'column', justifyContent: 'center', gap: 4 }}>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#E8EDF5' }}>{item.k}</Text>
+          <Text style={{ fontSize: 13.5, color: '#35D0BA' }}>{item.v}</Text>
+        </Box>
+        <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.65)', lineHeight: 1.5 }}>{item.d}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 728, top: 140, width: 488, height: 490, flexDirection: 'column', gap: 10 }}>
+    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#E8EDF5' }}>五大高频误区</Text>
+    {[
+      { t: '统计"生成了多少行"', d: '奖励注水行为——改看采纳后存活代码。' },
+      { t: '买工具不建规范', d: '没有 AGENTS.md，20 个人 20 种用法，产出互不相认。' },
+      { t: '让 Agent 拍架构决策', d: '方案必须人审，Agent 交给你的默认是"最平均的答案"。' },
+      { t: '一次派整个模块', d: '回滚成本爆炸，切回增量循环。' },
+      { t: '把输出当终稿', d: '测试、评审、审计一样不能省——它写得快，不代表你可以审得快。' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, flexDirection: 'row', gap: 12, alignItems: 'center', background: 'rgba(232,237,245,0.04)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 9, padding: '0 18px' }}>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: 'rgba(76,141,255,0.85)' }}>{idx + 1}</Text>
+        <Box style={{ flex: 1, flexDirection: 'column', gap: 2 }}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#E8EDF5' }}>{item.t}</Text>
+          <Text style={{ fontSize: 13.5, color: 'rgba(232,237,245,0.6)', lineHeight: 1.4 }}>{item.d}</Text>
+        </Box>
+      </Box>
+    ))}
+    <Box style={{ background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '14px 20px' }}>
+      <Text style={{ fontSize: 16, color: '#E8EDF5', lineHeight: 1.55 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>本课判断：</span>度量是行为的指挥棒——指标错了，团队会精准地跑向错误方向。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 落地篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>20 / 21</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,50 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: -80, bottom: -120, width: 420, height: 420, background: 'rgba(53,208,186,0.05)', borderRadius: 210 }} />
+
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>企业落地前，先装好安全护栏</Text>
+      <Box style={{ width: 56, height: 3, background: 'linear-gradient(90deg, #35D0BA 0%, #4C8DFF 100%)' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>无论选哪家工具，进研发环境前这四件事一件都不能少</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 160, width: 380, flexDirection: 'column', gap: 14 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'flex-end', gap: 16 }}>
+      <Text style={{ fontSize: 150, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', lineHeight: 0.95, backgroundImage: 'linear-gradient(135deg, #35D0BA 0%, #4C8DFF 100%)', backgroundClip: 'text', color: 'transparent' }}>4</Text>
+      <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#E8EDF5', paddingBottom: 18 }}>件套</Text>
+    </Box>
+    <Text style={{ fontSize: 18, color: 'rgba(232,237,245,0.75)', lineHeight: 1.7 }}>
+      Agent 的每一点效率提升，都来自它比你多拿到的权限；对应地，每一条权限都是一条风险敞口。
+    </Text>
+    <Text style={{ fontSize: 15, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.45)', letterSpacing: 1 }}>TRUST, BUT VERIFY — AND LOG</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 520, top: 140, width: 696, height: 430, flexDirection: 'column', gap: 14 }}>
+    {[
+      { no: '01', name: '沙箱隔离', d: 'Agent 在受限容器中运行：非 root、根目录只读、默认禁公网' },
+      { no: '02', name: '最小权限', d: '只授予"读仓库 + 写工作区"；shell 全权、删库、外发一律不给' },
+      { no: '03', name: '调用审计', d: '每一次工具调用留痕：谁、何时、动了什么——可回溯、可问责' },
+      { no: '04', name: '人工审批闸', d: '删库、资金、数据外发等高敏感动作零自动化，必须人工确认' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 20, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderLeft: '4px solid #35D0BA', borderRadius: 10, padding: '0 24px' }}>
+        <Text style={{ fontSize: 26, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>{item.no}</Text>
+        <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#E8EDF5', width: 150 }}>{item.name}</Text>
+        <Text style={{ flex: 1, fontSize: 15.5, color: 'rgba(232,237,245,0.68)', lineHeight: 1.5 }}>{item.d}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 592, width: 1152, height: 64, background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, flexDirection: 'row', alignItems: 'center', padding: '0 26px', gap: 12 }}>
+    <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+    <Text style={{ fontSize: 17.5, color: '#E8EDF5', lineHeight: 1.5 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>本课判断：</span>先画笼子，再放 Agent。护栏建设的一次性投入，远低于一次数据泄露的代价。</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>17 / 21</Text>
+  </Box>
+</Slide>

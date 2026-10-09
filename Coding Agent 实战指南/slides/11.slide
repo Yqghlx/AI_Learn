@@ -1,0 +1,18 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden' }}>
+  <Image src="assets/ch_practice.png" style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, objectFit: 'cover', opacity: 0.55 }} />
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(90deg, rgba(15,27,45,0.94) 0%, rgba(15,27,45,0.72) 50%, rgba(15,27,45,0.45) 100%)' }} />
+
+  <Text style={{ position: 'absolute', right: 40, top: -30, fontSize: 260, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.06)' }}>03</Text>
+
+  <Box style={{ position: 'absolute', left: 64, top: 250, width: 640, flexDirection: 'column', gap: 20 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+      <Text style={{ fontSize: 20, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', letterSpacing: 4 }}>CHAPTER 03</Text>
+      <Box style={{ width: 72, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#E8EDF5', letterSpacing: 2 }}>实践篇</Text>
+    <Text style={{ fontSize: 24, color: 'rgba(232,237,245,0.75)', lineHeight: 1.6 }}>把默契写进仓库，而不是每次重讲</Text>
+    <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.55)', lineHeight: 1.7, marginTop: 8 }}>
+      上下文工程、规则文件、任务简报、增量循环、自主度分级、安全护栏——本章是全课重点，也是你带得走的部分。
+    </Text>
+  </Box>
+</Slide>

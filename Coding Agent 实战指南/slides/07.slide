@@ -1,0 +1,55 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', right: -60, top: -80, width: 400, height: 400, background: 'rgba(53,208,186,0.05)', borderRadius: 200 }} />
+
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>国内格局：四强竞逐，无人通吃</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>数据截至 2026 年 5 月 · 公开市场统计口径</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 150, width: 420, flexDirection: 'column', gap: 12 }}>
+    <Text style={{ fontSize: 130, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', lineHeight: 1.05, backgroundImage: 'linear-gradient(135deg, #35D0BA 0%, #4C8DFF 100%)', backgroundClip: 'text', color: 'transparent' }}>28%</Text>
+    <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#E8EDF5' }}>腾讯 CodeBuddy 暂居第一</Text>
+    <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.65)', lineHeight: 1.65 }}>但第一名与第四名只差 6 个百分点——这个量级的差距，随时会被下一次版本更新改写。</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 540, top: 150, width: 676, height: 260, flexDirection: 'column', justifyContent: 'center', gap: 20 }}>
+    {[
+      { name: '腾讯 CodeBuddy', tag: '增速最快 · 三形态齐全', pct: 28, w: 900, c: '#35D0BA' },
+      { name: '阿里 Qoder（原通义灵码）', tag: '用户规模最大', pct: 26, w: 836, c: '#4C8DFF' },
+      { name: '字节 Trae', tag: '免费策略 · 增长迅猛', pct: 24, w: 772, c: '#4C8DFF' },
+      { name: '百度文心快码', tag: '企业级能力最强', pct: 22, w: 708, c: '#4C8DFF' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+        <Box style={{ width: 210, flexDirection: 'column', gap: 2 }}>
+          <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#E8EDF5' }}>{item.name}</Text>
+          <Text style={{ fontSize: 13, color: 'rgba(232,237,245,0.5)' }}>{item.tag}</Text>
+        </Box>
+        <Box style={{ width: 400, height: 26, background: 'rgba(232,237,245,0.06)', borderRadius: 4 }}>
+          <Box style={{ width: item.w * 400 / 900, height: 26, background: item.c === '#35D0BA' ? 'linear-gradient(90deg, #35D0BA 0%, rgba(53,208,186,0.55) 100%)' : 'linear-gradient(90deg, #4C8DFF 0%, rgba(76,141,255,0.45) 100%)', borderRadius: 4 }} />
+        </Box>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: item.c }}>{item.pct}%</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 452, width: 1152, height: 150, background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 12, padding: '22px 28px', flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+      <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#35D0BA' }}>本课判断</Text>
+    </Box>
+    <Text style={{ fontSize: 19, color: '#E8EDF5', lineHeight: 1.6 }}>
+      份额接近意味着"没有错误答案"：别再为"谁第一"浪费选型时间，把精力放在"谁和你的技术栈、云生态、合规要求最匹配"——下一页给出四强的完整拆解。
+    </Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 格局篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>07 / 21</Text>
+  </Box>
+</Slide>

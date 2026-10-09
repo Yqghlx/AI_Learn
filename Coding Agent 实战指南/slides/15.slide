@@ -1,0 +1,76 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>增量交付循环：小步、验证、可回滚</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>粒度决定回滚成本：一次一个切片，别让 Agent 一口气跑完整个需求</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 134, width: 1152, height: 252 }}>
+    <svg width={1152} height={252} viewBox='0 0 1152 252'>
+      <defs>
+        <marker id='arr' viewBox='0 0 10 10' refX='8' refY='5' markerWidth='7' markerHeight='7' orient='auto-start-reverse'>
+          <path d='M 0 0 L 10 5 L 0 10 z' fill='#35D0BA' />
+        </marker>
+      </defs>
+      <path d='M 360 70 C 470 30, 682 30, 792 70' fill='none' stroke='#35D0BA' strokeWidth='2.5' markerEnd='url(#arr)' />
+      <path d='M 930 105 L 930 145' fill='none' stroke='#35D0BA' strokeWidth='2.5' markerEnd='url(#arr)' />
+      <path d='M 792 180 C 682 220, 470 220, 360 180' fill='none' stroke='#35D0BA' strokeWidth='2.5' markerEnd='url(#arr)' />
+      <path d='M 222 145 L 222 105' fill='none' stroke='#35D0BA' strokeWidth='2.5' markerEnd='url(#arr)' />
+      <rect x='22' y='40' width='200' height='64' rx='10' fill='rgba(53,208,186,0.12)' stroke='#35D0BA' strokeWidth='1.5' />
+      <text x='122' y='68' textAnchor='middle' fontSize='20' fontWeight='bold' fill='#35D0BA' fontFamily='Microsoft YaHei, sans-serif'>① 拆</text>
+      <text x='122' y='92' textAnchor='middle' fontSize='13' fill='rgba(232,237,245,0.65)' fontFamily='Microsoft YaHei, sans-serif'>需求切成可验证的切片</text>
+      <rect x='792' y='40' width='200' height='64' rx='10' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.5)' strokeWidth='1' />
+      <text x='892' y='68' textAnchor='middle' fontSize='20' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>② 派</text>
+      <text x='892' y='92' textAnchor='middle' fontSize='13' fill='rgba(232,237,245,0.65)' fontFamily='Microsoft YaHei, sans-serif'>一次只派一个，带四要素</text>
+      <rect x='792' y='148' width='200' height='64' rx='10' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.5)' strokeWidth='1' />
+      <text x='892' y='176' textAnchor='middle' fontSize='20' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>③ 验</text>
+      <text x='892' y='200' textAnchor='middle' fontSize='13' fill='rgba(232,237,245,0.65)' fontFamily='Microsoft YaHei, sans-serif'>测试 + 人审 diff，不过就回滚</text>
+      <rect x='22' y='148' width='200' height='64' rx='10' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.5)' strokeWidth='1' />
+      <text x='122' y='176' textAnchor='middle' fontSize='20' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>④ 收</text>
+      <text x='122' y='200' textAnchor='middle' fontSize='13' fill='rgba(232,237,245,0.65)' fontFamily='Microsoft YaHei, sans-serif'>立即 commit，沉淀上下文</text>
+      <text x='576' y='118' textAnchor='middle' fontSize='17' fontWeight='bold' fill='rgba(232,237,245,0.85)' fontFamily='Microsoft YaHei, sans-serif'>每圈 ≤ 1 天</text>
+      <text x='576' y='146' textAnchor='middle' fontSize='13' fill='rgba(232,237,245,0.5)' fontFamily='JetBrains Mono, monospace'>SMALL BATCH, FAST FEEDBACK</text>
+    </svg>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 408, width: 1152, height: 212, flexDirection: 'row', gap: 20 }}>
+    <Box style={{ flex: 1.5, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 12, padding: '20px 26px', flexDirection: 'column', gap: 10 }}>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#E8EDF5' }}>每一步的硬检查点</Text>
+      <Box style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', gap: 10 }}>
+        {[
+          { s: '拆', q: '这个切片能独立验收吗？说不清"怎么验"就还没拆好。' },
+          { s: '派', q: '四要素齐了吗？缺 Constraints 的简报退回重写。' },
+          { s: '验', q: '测试红了吗？diff 逐行看过了吗？没看就等于没验。' },
+          { s: '收', q: 'commit message 写清"为什么"了吗？它是下一轮的上下文。' },
+        ].map((item, idx) => (
+          <Box key={idx} style={{ width: '48%', flexDirection: 'row', gap: 10, alignItems: 'flex-start' }}>
+            <Box style={{ width: 30, height: 30, borderRadius: 15, background: 'rgba(53,208,186,0.12)', border: '1px solid rgba(53,208,186,0.5)', alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 15, color: '#35D0BA', fontFamily: 'JetBrains Mono, monospace' }}>{item.s}</Text>
+            </Box>
+            <Text style={{ flex: 1, fontSize: 14.5, color: 'rgba(232,237,245,0.7)', lineHeight: 1.5 }}>{item.q}</Text>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+    <Box style={{ flex: 1, background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 12, padding: '20px 26px', flexDirection: 'column', gap: 10 }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+        <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#35D0BA' }}>本课判断</Text>
+      </Box>
+      <Text style={{ fontSize: 17, color: '#E8EDF5', lineHeight: 1.7 }}>
+        一句"帮我把整个模块写完"得到的代码，你不敢上线；四个检查点走过的切片，你敢。
+      </Text>
+      <Text style={{ fontSize: 15, color: 'rgba(232,237,245,0.6)', lineHeight: 1.6 }}>循环的意义不是慢，恰恰是快——因为返工被限制在了一个切片之内。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>15 / 21</Text>
+  </Box>
+</Slide>

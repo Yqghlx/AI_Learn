@@ -1,0 +1,64 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>选型决策：按生态位匹配，不按跑分</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>四个入口，对应四种真实处境——先定位自己在哪条岔路上</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 136, width: 1152, height: 270 }}>
+    <svg width={1152} height={270} viewBox='0 0 1152 270'>
+      <path d='M150 135 C 260 135, 280 35, 400 35' fill='none' stroke='#4C8DFF' strokeWidth='2' opacity='0.7' />
+      <path d='M150 135 C 260 135, 280 98, 400 98' fill='none' stroke='#4C8DFF' strokeWidth='2' opacity='0.7' />
+      <path d='M150 135 C 260 135, 280 161, 400 161' fill='none' stroke='#4C8DFF' strokeWidth='2' opacity='0.7' />
+      <path d='M150 135 C 260 135, 280 224, 400 224' fill='none' stroke='#4C8DFF' strokeWidth='2' opacity='0.7' />
+      <rect x='0' y='98' width='150' height='74' rx='10' fill='rgba(53,208,186,0.12)' stroke='#35D0BA' strokeWidth='1.5' />
+      <text x='75' y='128' textAnchor='middle' fontSize='19' fontWeight='bold' fill='#E8EDF5' fontFamily='Microsoft YaHei, sans-serif'>你的场景</text>
+      <text x='75' y='152' textAnchor='middle' fontSize='12' fill='rgba(232,237,245,0.6)' fontFamily='JetBrains Mono, monospace'>START HERE</text>
+
+      <rect x='400' y='8' width='752' height='54' rx='9' fill='rgba(232,237,245,0.05)' stroke='rgba(53,208,186,0.45)' strokeWidth='1' />
+      <text x='424' y='31' fontSize='16' fontWeight='bold' fill='#35D0BA' fontFamily='Microsoft YaHei, sans-serif'>微信 / 小程序 / 企微生态</text>
+      <text x='424' y='51' fontSize='13' fill='rgba(232,237,245,0.65)'>做微信端产品 → 腾讯 CodeBuddy：文档、组件库、云开发原生打通</text>
+
+      <rect x='400' y='71' width='752' height='54' rx='9' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.45)' strokeWidth='1' />
+      <text x='424' y='94' fontSize='16' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>阿里云栈 / 金融政务高合规</text>
+      <text x='424' y='114' fontSize='13' fill='rgba(232,237,245,0.65)'>要私有化与长上下文 → 阿里 Qoder：企业版私有化，100 万上下文</text>
+
+      <rect x='400' y='134' width='752' height='54' rx='9' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.45)' strokeWidth='1' />
+      <text x='424' y='157' fontSize='16' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>个人学习 / 学生 / 快速 MVP</text>
+      <text x='424' y='177' fontSize='13' fill='rgba(232,237,245,0.65)'>零成本起步 → 字节 Trae：全免费、国内直连、SOLO 一句话出项目</text>
+
+      <rect x='400' y='197' width='752' height='54' rx='9' fill='rgba(232,237,245,0.05)' stroke='rgba(76,141,255,0.45)' strokeWidth='1' />
+      <text x='424' y='220' fontSize='16' fontWeight='bold' fill='#4C8DFF' fontFamily='Microsoft YaHei, sans-serif'>中文复杂业务 / 强数据安全</text>
+      <text x='424' y='240' fontSize='13' fill='rgba(232,237,245,0.65)'>要过程可回溯 → 百度文心快码：SPEC 模式 + 代码库级 RAG + 安全扫描</text>
+    </svg>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 424, width: 1152, height: 196, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 12, padding: '22px 28px', flexDirection: 'column', gap: 14 }}>
+    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#E8EDF5' }}>选型三原则</Text>
+    <Box style={{ flex: 1, flexDirection: 'row' }}>
+      {[
+        { no: '1', title: '生态优先', desc: '你在哪个云、哪个办公套件里，就优先看谁——集成成本比功能差距更真实。' },
+        { no: '2', title: '形态次之', desc: '插件、独立 IDE 还是 CLI？决定的是工作流，而工作流决定习惯能否留存。' },
+        { no: '3', title: 'PoC 定案', desc: '拿自己最复杂的三个真实任务跑两周，采纳率和返工率自己说话。' },
+      ].map((item, idx) => (
+        <Box key={idx} style={{ flex: 1, flexDirection: 'row', gap: 14, borderLeft: idx === 0 ? 'none' : '1px solid rgba(232,237,245,0.1)', paddingLeft: idx === 0 ? 0 : 24, paddingRight: 24 }}>
+          <Text style={{ fontSize: 34, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', lineHeight: 1 }}>{item.no}</Text>
+          <Box style={{ flex: 1, flexDirection: 'column', gap: 6 }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#E8EDF5' }}>{item.title}</Text>
+            <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.65)', lineHeight: 1.55 }}>{item.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 格局篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>10 / 21</Text>
+  </Box>
+</Slide>

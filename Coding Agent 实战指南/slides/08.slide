@@ -1,0 +1,52 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>四强逐个拆解</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>不看广告看疗效：差异点、适配场景，以及它们不会写进官网的"代价"</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 136, width: 1152, height: 484, flexDirection: 'row', gap: 16 }}>
+    {[
+      { name: '腾讯 CodeBuddy', vendor: '腾讯 · 2025.09', metric: '28% 份额 · 插件/IDE/CLI 三形态', points: ['微信生态深度集成：小程序、小游戏、云开发直接生成可提交成品', 'Craft 端到端模式 + Figma 设计稿转代码', 'SubAgents 子代理与 Typed Memory 跨会话记忆'], fit: '微信 / 企微生态、腾讯云团队', cost: '离开腾讯生态，差异化优势收窄' },
+      { name: '阿里 Qoder', vendor: '阿里 · 原通义灵码', metric: '26% 份额 · SWE-bench 72.3%', points: ['底层 Qwen3.8-Max：2.4 万亿参数、100 万上下文', '工程自动感知、记忆学习、专家团协作', '企业版支持私有化，服务一汽、建信金科'], fit: '阿里云生态、金融政务高合规', cost: '长周期自主运行仍需人工验收兜底' },
+      { name: '字节 Trae', vendor: '字节跳动 · 2025.01', metric: '24% 份额 · 全功能免费', points: ['IDE + SOLO 双模式：控制感与自动化自由切换', '豆包 1.5-pro、DeepSeek R1/V3 多模型内置', '国内直连零配置，对新手最友好'], fit: '个人开发者、学生、MVP 创业', cost: '企业版暂未推出，团队治理能力待补' },
+      { name: '百度文心快码', vendor: '百度 · 2023.07', metric: '百度内部新增代码 45% AI 生成', points: ['3.5S 多智能体自协同：计划 / 编码 / 测试智能体分工', 'SPEC 模式：过程可回溯、任意节点可干预', '中文理解行业第一，代码库级 RAG + 安全扫描'], fit: '中文复杂业务、强数据安全企业', cost: '个人端生态与社区活跃度相对较弱' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, height: 484, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '20px 20px 16px 20px', flexDirection: 'column', overflow: 'hidden' }}>
+        <Box style={{ width: '100%', height: 4, background: idx === 0 ? 'linear-gradient(90deg, #35D0BA 0%, #4C8DFF 100%)' : 'rgba(76,141,255,0.55)', borderRadius: 2, marginBottom: 14 }} />
+        <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#E8EDF5' }}>{item.name}</Text>
+        <Text style={{ fontSize: 13, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.5)', marginTop: 2 }}>{item.vendor}</Text>
+        <Box style={{ marginTop: 12, background: 'rgba(232,237,245,0.06)', borderRadius: 6, padding: '8px 12px' }}>
+          <Text style={{ fontSize: 13.5, fontFamily: 'JetBrains Mono, monospace', color: idx === 0 ? '#35D0BA' : 'rgba(76,141,255,0.9)' }}>{item.metric}</Text>
+        </Box>
+        <Box style={{ flexDirection: 'column', gap: 8, marginTop: 14 }}>
+          {item.points.map((p, i) => (
+            <Box key={i} style={{ flexDirection: 'row', gap: 8 }}>
+              <Box style={{ width: 5, height: 5, borderRadius: 3, background: '#4C8DFF', marginTop: 8 }} />
+              <Text style={{ flex: 1, fontSize: 14, color: 'rgba(232,237,245,0.72)', lineHeight: 1.5 }}>{p}</Text>
+            </Box>
+          ))}
+        </Box>
+        <Box style={{ marginTop: 'auto' }}>
+          <Box style={{ flexDirection: 'row', gap: 8, marginBottom: 6 }}>
+            <Box style={{ width: 5, height: 5, borderRadius: 3, background: '#35D0BA', marginTop: 8 }} />
+            <Text style={{ fontSize: 13, color: 'rgba(232,237,245,0.55)' }}>适合：{item.fit}</Text>
+          </Box>
+          <Box style={{ background: 'rgba(232,237,245,0.07)', borderRadius: 6, padding: '8px 12px' }}>
+            <Text style={{ fontSize: 13.5, color: 'rgba(232,237,245,0.85)', lineHeight: 1.45 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>代价：</span>{item.cost}</Text>
+          </Box>
+        </Box>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 格局篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>08 / 21</Text>
+  </Box>
+</Slide>

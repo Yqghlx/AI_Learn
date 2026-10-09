@@ -1,0 +1,18 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden' }}>
+  <Image src="assets/ch_landscape.png" style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, objectFit: 'cover', opacity: 0.7 }} />
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(90deg, rgba(15,27,45,0.92) 0%, rgba(15,27,45,0.68) 50%, rgba(15,27,45,0.4) 100%)' }} />
+
+  <Text style={{ position: 'absolute', right: 40, top: -30, fontSize: 260, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.06)' }}>02</Text>
+
+  <Box style={{ position: 'absolute', left: 64, top: 250, width: 640, flexDirection: 'column', gap: 20 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+      <Text style={{ fontSize: 20, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', letterSpacing: 4 }}>CHAPTER 02</Text>
+      <Box style={{ width: 72, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 64, fontWeight: 'bold', color: '#E8EDF5', letterSpacing: 2 }}>格局篇</Text>
+    <Text style={{ fontSize: 24, color: 'rgba(232,237,245,0.75)', lineHeight: 1.6 }}>四强并立，选的是生态位</Text>
+    <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.55)', lineHeight: 1.7, marginTop: 8 }}>
+      国内第一梯队已经贴身缠斗——这一章帮你在 30 分钟内建立选型框架，而不是再刷一遍营销稿。
+    </Text>
+  </Box>
+</Slide>

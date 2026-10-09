@@ -1,0 +1,37 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(135deg, rgba(76,141,255,0.06) 0%, rgba(15,27,45,0) 40%)' }} />
+
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 120, height: 120, flexDirection: 'row', alignItems: 'center' }}>
+    <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>目录</Text>
+  </Box>
+  <Box style={{ position: 'absolute', left: 64, top: 74, width: 56, height: 3, background: '#35D0BA' }} />
+
+  <Box style={{ position: 'absolute', left: 64, top: 150, width: 300, height: 470, flexDirection: 'column' }}>
+    <Box style={{ width: 6, height: 120, background: 'linear-gradient(180deg, #35D0BA 0%, #4C8DFF 100%)' }} />
+    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#E8EDF5', lineHeight: 1.5, marginTop: 24 }}>四个问题，<br />一条落地路径</Text>
+    <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.6)', lineHeight: 1.7, marginTop: 16 }}>从认知到工具，从方法到团队——每一章回答一个你下周就会遇到的问题。</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 420, top: 130, width: 796, height: 510, flexDirection: 'column', gap: 14 }}>
+    {[
+      { no: '01', title: '认知篇 · 从补全到自主执行', q: 'Coding Agent 到底和补全工具差在哪？', page: 'P03 - P05' },
+      { no: '02', title: '格局篇 · 国内 Coding Agent 全景', q: '四强并立，我的团队该选哪个生态位？', page: 'P06 - P10' },
+      { no: '03', title: '实践篇 · 上下文、约束与交付循环', q: '为什么它写的代码总是不对味？', page: 'P11 - P17' },
+      { no: '04', title: '落地篇 · 团队推广与度量', q: '如何从个人提效走到团队可复制？', page: 'P18 - P20' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 24, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '0 28px' }}>
+        <Text style={{ fontSize: 30, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: idx === 2 ? '#35D0BA' : '#4C8DFF' }}>{item.no}</Text>
+        <Box style={{ flex: 1, flexDirection: 'column', gap: 6 }}>
+          <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#E8EDF5' }}>{item.title}</Text>
+          <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.58)' }}>{item.q}</Text>
+        </Box>
+        <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.45)' }}>{item.page}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 研发效能内训</Text>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>02 / 21</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,33 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden' }}>
+  <Box style={{ position: 'absolute', left: -100, top: -140, width: 480, height: 480, background: 'rgba(53,208,186,0.06)', borderRadius: 240 }} />
+  <Box style={{ position: 'absolute', right: -120, bottom: -160, width: 520, height: 520, background: 'rgba(76,141,255,0.05)', borderRadius: 260 }} />
+  <Box style={{ position: 'absolute', left: 0, top: 0, width: 1280, height: 6, background: 'linear-gradient(90deg, #35D0BA 0%, #4C8DFF 100%)' }} />
+
+  <Box style={{ position: 'absolute', left: 160, top: 170, width: 960, flexDirection: 'column', gap: 24, alignItems: 'center' }}>
+    <Text style={{ fontSize: 110, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: 'rgba(53,208,186,0.35)', lineHeight: 0.6 }}>&ldquo;</Text>
+    <Text style={{ fontSize: 46, fontWeight: 'bold', color: '#E8EDF5', textAlign: 'center', lineHeight: 1.5 }}>
+      决定产出的不是模型，<br />而是<span style={{ color: '#35D0BA' }}>你给它的上下文与边界</span>。
+    </Text>
+    <Text style={{ fontSize: 19, color: 'rgba(232,237,245,0.6)', textAlign: 'center', lineHeight: 1.7 }}>
+      把默契写进仓库，Agent 才会成为团队的一员。
+    </Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 160, top: 500, width: 960, flexDirection: 'row', gap: 18 }}>
+    {[
+      { no: '01', act: '本周内为自己的仓库建一个 AGENTS.md（手写，< 150 行）' },
+      { no: '02', act: '用一个真实小需求跑通一轮"拆-派-验-收"增量循环' },
+      { no: '03', act: '对照安全四件套自查权限，补上调用审计' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.12)', borderRadius: 10, padding: '18px 20px', flexDirection: 'column', gap: 8 }}>
+        <Text style={{ fontSize: 22, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>{item.no}</Text>
+        <Text style={{ fontSize: 15.5, color: 'rgba(232,237,245,0.78)', lineHeight: 1.55 }}>{item.act}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 160, bottom: 56, width: 960, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+    <Text style={{ fontSize: 15, color: 'rgba(232,237,245,0.5)' }}>Coding Agent 实战指南 · 研发效能内训 · 2026.10</Text>
+    <Text style={{ fontSize: 15, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.5)' }}>21 / 21</Text>
+  </Box>
+</Slide>

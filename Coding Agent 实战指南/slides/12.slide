@@ -1,0 +1,50 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>上下文工程：六层放对位置</Text>
+      <Box style={{ width: 56, height: 3, background: 'linear-gradient(90deg, #35D0BA 0%, #4C8DFF 100%)' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>Agent 变笨的头号原因：什么都往提示词里塞</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 700, height: 490, flexDirection: 'column', gap: 10 }}>
+    {[
+      { no: 'L1', name: '任务契约 Prompt', what: '只放四要素：目标、上下文指针、约束、完成标准', w: '100%', hl: true },
+      { no: 'L2', name: '规则文件 AGENTS.md', what: '架构、命令、约定、边界——写一次，永久生效', w: '93%', hl: true },
+      { no: 'L3', name: 'Skills 可复用工作流', what: '重复 3 次以上的多步流程，封装成技能', w: '86%', hl: false },
+      { no: 'L4', name: 'MCP 外部工具', what: '日志、数据库、云服务——按需接入，控权限', w: '79%', hl: false },
+      { no: 'L5', name: 'Subagents 子智能体', what: '独立上下文的分身，隔离噪音、并行干活', w: '72%', hl: false },
+      { no: 'L6', name: 'Artifacts 产物沉淀', what: '生成的代码、文档、报告——沉淀回仓库', w: '65%', hl: false },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ width: item.w, flex: 1, flexDirection: 'row', alignItems: 'center', gap: 18, background: item.hl ? 'rgba(53,208,186,0.1)' : 'rgba(232,237,245,0.05)', border: item.hl ? '1px solid rgba(53,208,186,0.45)' : '1px solid rgba(232,237,245,0.1)', borderRadius: 9, padding: '0 20px' }}>
+        <Text style={{ fontSize: 21, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: item.hl ? '#35D0BA' : 'rgba(76,141,255,0.85)' }}>{item.no}</Text>
+        <Text style={{ fontSize: 18.5, fontWeight: 'bold', color: '#E8EDF5', width: 208 }}>{item.name}</Text>
+        <Text style={{ flex: 1, fontSize: 14.5, color: 'rgba(232,237,245,0.62)', lineHeight: 1.4 }}>{item.what}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 808, top: 140, width: 408, height: 490, flexDirection: 'column', gap: 18 }}>
+    <Text style={{ fontSize: 19, color: '#E8EDF5', lineHeight: 1.7 }}>
+      六层是一个分流漏斗：静态、稳定的信息往下沉（规则、技能、工具），动态、一次性的信息往上浮（本次任务的契约）。
+    </Text>
+    <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.65)', lineHeight: 1.7 }}>
+      判断一条信息放哪一层的标准很简单——<span style={{ fontWeight: 'bold', color: '#35D0BA' }}>换个任务它还有用吗？</span>有用就沉下去，没用就留在 L1。
+    </Text>
+    <Box style={{ marginTop: 'auto', background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '20px 24px' }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#35D0BA' }}>本课判断</Text>
+      </Box>
+      <Text style={{ fontSize: 17.5, color: '#E8EDF5', lineHeight: 1.65 }}>上下文不是越多越好：无关信息会稀释关键规则。主线程越干净，Agent 越聪明。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>12 / 21</Text>
+  </Box>
+</Slide>

@@ -1,0 +1,28 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden' }}>
+  <Image src="assets/cover_agent.png" style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, objectFit: 'cover' }} />
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(90deg, #0F1B2D 0%, rgba(15,27,45,0.78) 42%, rgba(15,27,45,0.18) 100%)' }} />
+  <Box style={{ position: 'absolute', top: 0, left: 0, width: 1280, height: 720, background: 'linear-gradient(0deg, rgba(15,27,45,0.85) 0%, rgba(15,27,45,0) 30%)' }} />
+
+  <Box style={{ position: 'absolute', left: 64, top: 150, width: 560, flexDirection: 'column', gap: 18 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+      <Box style={{ width: 96, height: 4, background: 'linear-gradient(135deg, #35D0BA 0%, #4C8DFF 100%)' }} />
+      <Text style={{ fontSize: 15, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', letterSpacing: 3 }}>RESEARCH EFFECTIVENESS</Text>
+    </Box>
+    <Text style={{ fontSize: 72, fontWeight: 'bold', color: '#E8EDF5', lineHeight: 1.12, fontFamily: 'JetBrains Mono, monospace' }}>Coding Agent</Text>
+    <Text style={{ fontSize: 66, fontWeight: 'bold', color: '#35D0BA', lineHeight: 1.15 }}>实战指南</Text>
+    <Text style={{ fontSize: 22, color: 'rgba(232,237,245,0.78)', lineHeight: 1.6, marginTop: 6 }}>
+      国内编码智能体横向对比 × 工程落地最佳实践
+    </Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 64, flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 8, background: 'rgba(232,237,245,0.08)', border: '1px solid rgba(232,237,245,0.14)', borderRadius: 16, padding: '6px 16px' }}>
+      <Box style={{ width: 8, height: 8, borderRadius: 4, background: '#35D0BA' }} />
+      <Text style={{ fontSize: 15, color: '#E8EDF5' }}>研发效能内训</Text>
+    </Box>
+    <Text style={{ fontSize: 15, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.55)' }}>2026.10</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', right: 0, bottom: 0, width: 300, height: 70, background: 'rgba(15,27,45,0.92)' }} />
+  <Text style={{ position: 'absolute', right: 64, bottom: 24, fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: 'rgba(232,237,245,0.4)', letterSpacing: 2 }}>AGENTIC CODING 101</Text>
+</Slide>

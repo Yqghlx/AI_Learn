@@ -1,0 +1,68 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>任务简报四要素：30 秒定生死</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>产出的差距，八成在开工前 30 秒就决定了</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 340, height: 490, background: 'linear-gradient(180deg, rgba(53,208,186,0.12) 0%, rgba(76,141,255,0.08) 100%)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 12, padding: '28px 26px', flexDirection: 'column' }}>
+    <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#E8EDF5', lineHeight: 1.4 }}>每条只写<br />不可省略的信息</Text>
+    <Box style={{ flexDirection: 'column', gap: 16, marginTop: 24 }}>
+      {[
+        { k: 'Goal', d: '要解决什么问题，一句话' },
+        { k: 'Context', d: '相关代码与日志的路径指针' },
+        { k: 'Constraints', d: '不许动什么、不许加什么' },
+        { k: 'Done-when', d: '什么条件算完成、如何验证' },
+      ].map((item, idx) => (
+        <Box key={idx} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 12 }}>
+          <Box style={{ width: 6, height: 40, background: '#35D0BA', borderRadius: 3 }} />
+          <Box style={{ flexDirection: 'column', gap: 2 }}>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>{item.k}</Text>
+            <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.68)', lineHeight: 1.45 }}>{item.d}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+    <Text style={{ marginTop: 'auto', fontSize: 14.5, color: 'rgba(232,237,245,0.55)', lineHeight: 1.6 }}>静态约束写在 AGENTS.md，这里只放本次任务的增量。</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 440, top: 140, width: 776, height: 300, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 12, padding: '22px 28px', flexDirection: 'column', gap: 14 }}>
+    <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#E8EDF5' }}>一份合格简报的样子</Text>
+    {[
+      { k: 'Goal', v: '修复优惠券接口返回 500 时订单无法提交的问题' },
+      { k: 'Context', v: '相关代码 apps/web/src/checkout；错误日志 logs/checkout-500.log' },
+      { k: 'Constraints', v: '不改支付 SDK；不新增依赖；报错文案风格与现有保持一致' },
+      { k: 'Done-when', v: '新增测试通过；本地下单全链路自测通过；根因写入 PR 描述' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 16, flex: 1 }}>
+        <Box style={{ width: 128, background: 'rgba(53,208,186,0.12)', borderRadius: 6, padding: '4px 0', alignItems: 'center' }}>
+          <Text style={{ fontSize: 15, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', textAlign: 'center' }}>{item.k}</Text>
+        </Box>
+        <Text style={{ flex: 1, fontSize: 16, color: 'rgba(232,237,245,0.85)', lineHeight: 1.5 }}>{item.v}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 440, top: 462, width: 776, height: 168, flexDirection: 'row', gap: 18 }}>
+    <Box style={{ flex: 1, background: 'rgba(232,237,245,0.04)', border: '1px solid rgba(232,237,245,0.12)', borderRadius: 12, padding: '18px 22px', flexDirection: 'column', gap: 8 }}>
+      <Text style={{ fontSize: 15, fontWeight: 'bold', color: 'rgba(232,237,245,0.5)' }}>✗ 坏简报</Text>
+      <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.75)', fontFamily: 'JetBrains Mono, monospace' }}>"帮我修一下下单报错"</Text>
+      <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.55)', lineHeight: 1.55 }}>Agent 只能靠猜：猜范围、猜边界、猜"修好"的标准——猜错三次，信任归零。</Text>
+    </Box>
+    <Box style={{ flex: 1, background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 12, padding: '18px 22px', flexDirection: 'column', gap: 8 }}>
+      <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#35D0BA' }}>✓ 好简报的回报</Text>
+      <Text style={{ fontSize: 17, color: '#E8EDF5', lineHeight: 1.55 }}>第一次产出就接近可用，返工轮次从 3–4 轮降到 1 轮。</Text>
+      <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.65)', lineHeight: 1.55 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>本课判断：</span>加约束比加形容词有效——"认真写"没有用，"不改支付 SDK"才有用。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>14 / 21</Text>
+  </Box>
+</Slide>

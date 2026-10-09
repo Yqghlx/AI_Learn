@@ -1,0 +1,58 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>三次范式跃迁</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>每一次跃迁，改变的都是"谁在规划"这件事</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 640, height: 490 }}>
+    <Box style={{ position: 'absolute', left: 19, top: 30, width: 2, height: 430, background: 'rgba(232,237,245,0.14)' }} />
+    <Box style={{ position: 'relative', width: 640, height: 490, flexDirection: 'column', gap: 22 }}>
+      {[
+        { year: '2021 -', name: '代码补全', desc: '人在写，AI 猜下一个词。Tab 键就是全部交互，出错成本极低。', color: '#4C8DFF', hl: false },
+        { year: '2023 -', name: '对话改写', desc: '人规划，AI 生成整段代码。选中 - 提问 - 粘贴，心智仍是"我来改"。', color: '#4C8DFF', hl: false },
+        { year: '2025 -', name: '自主执行', desc: 'AI 接收目标，自己拆任务、调工具、改文件、跑测试；人定边界、给约束、做验收。', color: '#35D0BA', hl: true },
+      ].map((item, idx) => (
+        <Box key={idx} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 18 }}>
+          <Box style={{ width: 40, height: 40, borderRadius: 20, background: item.hl ? '#35D0BA' : 'rgba(76,141,255,0.18)', border: item.hl ? 'none' : '2px solid #4C8DFF', alignItems: 'center', justifyContent: 'center' }}>
+            <Box style={{ width: item.hl ? 16 : 10, height: item.hl ? 16 : 10, borderRadius: 8, background: item.hl ? '#0F1B2D' : '#4C8DFF' }} />
+          </Box>
+          <Box style={{ flex: 1, height: 138, flexDirection: 'column', justifyContent: 'center', gap: 8, background: item.hl ? 'rgba(53,208,186,0.09)' : 'rgba(232,237,245,0.05)', border: item.hl ? '1px solid rgba(53,208,186,0.4)' : '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '0 24px' }}>
+            <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+              <Text style={{ fontSize: 17, fontFamily: 'JetBrains Mono, monospace', color: item.hl ? '#35D0BA' : 'rgba(76,141,255,0.9)' }}>{item.year}</Text>
+              <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#E8EDF5' }}>{item.name}</Text>
+            </Box>
+            <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.68)', lineHeight: 1.55 }}>{item.desc}</Text>
+          </Box>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 748, top: 140, width: 468, height: 490, flexDirection: 'column', gap: 18 }}>
+    <Text style={{ fontSize: 20, color: '#E8EDF5', lineHeight: 1.7 }}>
+      大多数团队的真实状态：手里拿着第三级的工具，脑子里还是第一级的心智——把它当猜词机器，用完一句"不好用"就关掉了。
+    </Text>
+    <Box style={{ flexDirection: 'row', gap: 14 }}>
+      <Box style={{ width: 4, height: 96, background: '#4C8DFF' }} />
+      <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.7)', lineHeight: 1.7 }}>工具每升一级，人的职责就后退一步：从"写字"退到"改字"，再退到"定标准、验结果"。</Text>
+    </Box>
+    <Box style={{ marginTop: 'auto', background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '20px 24px' }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#35D0BA' }}>本课判断</Text>
+      </Box>
+      <Text style={{ fontSize: 18, color: '#E8EDF5', lineHeight: 1.65 }}>心智模型不换，工具永远停在第一级。本课后面所有实践，都建立在第三级的工作方式上。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 认知篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>04 / 21</Text>
+  </Box>
+</Slide>

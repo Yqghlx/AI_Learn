@@ -1,0 +1,48 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>自主度分级：把介入点画在事前</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>敢放手的前提，是知道每一级该在哪里伸手</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 700, height: 490, flexDirection: 'column', justifyContent: 'flex-end', gap: 12 }}>
+    {[
+      { no: 'L0', name: '补全级', desc: '人写，AI 补全单行', check: '介入：按键即审，零额外成本', w: '52%' },
+      { no: 'L1', name: '单文件级', desc: 'AI 修改单个文件', check: '介入：逐行审 diff，看测试', w: '66%' },
+      { no: 'L2', name: '跨文件级', desc: 'AI 完成跨模块小特性', check: '介入：先审方案设计，再验收测结果', w: '82%' },
+      { no: 'L3', name: '长周期自主级', desc: '连续多日自主运行（实测曾有 16 天 / 265 次提交）', check: '介入：事前定边界与红线，里程碑验收兜底', w: '100%', hl: true },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ width: item.w, height: 102, background: item.hl ? 'rgba(53,208,186,0.1)' : 'rgba(232,237,245,0.05)', border: item.hl ? '1px solid rgba(53,208,186,0.45)' : '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '14px 22px', flexDirection: 'column', justifyContent: 'center', gap: 5 }}>
+        <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+          <Text style={{ fontSize: 19, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: item.hl ? '#35D0BA' : 'rgba(76,141,255,0.85)' }}>{item.no}</Text>
+          <Text style={{ fontSize: 19, fontWeight: 'bold', color: '#E8EDF5' }}>{item.name}</Text>
+          <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.55)' }}>{item.desc}</Text>
+        </Box>
+        <Text style={{ fontSize: 14.5, color: item.hl ? '#35D0BA' : 'rgba(232,237,245,0.65)', lineHeight: 1.4 }}>{item.check}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 808, top: 140, width: 408, height: 490, flexDirection: 'column', gap: 16 }}>
+    <Text style={{ fontSize: 19, color: '#E8EDF5', lineHeight: 1.7 }}>
+      等级每升一级，人的角色就换一次：从"写字的"变成"改稿的"，再变成"定标准、验结果的人"。
+    </Text>
+    <Box style={{ background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '16px 20px' }}>
+      <Text style={{ fontSize: 15, fontWeight: 'bold', color: '#4C8DFF', marginBottom: 6 }}>这些事始终不建议交给 Agent 自主决策</Text>
+      <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.68)', lineHeight: 1.65 }}>核心金融计算与估值逻辑、加密与鉴权实现、大规模遗留系统重构——AI 只做展示与辅助，结论必须由人写。</Text>
+    </Box>
+    <Box style={{ marginTop: 'auto', background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '18px 22px' }}>
+      <Text style={{ fontSize: 16.5, color: '#E8EDF5', lineHeight: 1.65 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>本课判断：</span>Qoder 的 16 天自主运行实验证明了上限，也证明了结论——长周期自主仍需人类兜底验收。放手不放眼。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>16 / 21</Text>
+  </Box>
+</Slide>

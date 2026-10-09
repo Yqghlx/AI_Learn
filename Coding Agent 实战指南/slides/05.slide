@@ -1,0 +1,52 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>拆开看：Agent 的五层能力栈</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>你抱怨的"不够聪明"，多数时候不是模型层的问题</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 640, height: 490, flexDirection: 'column', gap: 12 }}>
+    {[
+      { no: '05', name: '反馈层', desc: '测试、Lint、CI、人工评审——让 Agent 知道自己做对了没有', hl: false },
+      { no: '04', name: '记忆层', desc: '跨会话记忆、项目约定沉淀，避免每次从零认识你的仓库', hl: false },
+      { no: '03', name: '上下文层', desc: '规则文件、任务简报、代码库检索——本课的主战场', hl: true },
+      { no: '02', name: '工具层', desc: '读写文件、执行终端、检索代码库、MCP 外部服务', hl: false },
+      { no: '01', name: '模型层', desc: '推理与代码能力底座，如 Qwen3-Coder（SWE-bench Verified 72.3%）', hl: false },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flex: 1, flexDirection: 'row', alignItems: 'center', gap: 20, background: item.hl ? 'rgba(53,208,186,0.1)' : 'rgba(232,237,245,0.05)', border: item.hl ? '1px solid rgba(53,208,186,0.45)' : '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '0 24px', borderLeft: item.hl ? '4px solid #35D0BA' : '4px solid rgba(76,141,255,0.5)' }}>
+        <Text style={{ fontSize: 26, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: item.hl ? '#35D0BA' : 'rgba(76,141,255,0.8)' }}>{item.no}</Text>
+        <Box style={{ width: 108 }}>
+          <Text style={{ fontSize: 21, fontWeight: 'bold', color: '#E8EDF5' }}>{item.name}</Text>
+        </Box>
+        <Text style={{ flex: 1, fontSize: 15.5, color: 'rgba(232,237,245,0.68)', lineHeight: 1.5 }}>{item.desc}</Text>
+      </Box>
+    ))}
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 748, top: 140, width: 468, height: 490, flexDirection: 'column', gap: 18 }}>
+    <Text style={{ fontSize: 20, color: '#E8EDF5', lineHeight: 1.7 }}>
+      同一个模型，在不同团队手里产出天差地别——差距几乎都出在第 2、3、5 层：工具接得全不全，上下文给得准不准，反馈回路闭没闭。
+    </Text>
+    <Box style={{ flexDirection: 'row', gap: 14 }}>
+      <Box style={{ width: 4, height: 88, background: '#4C8DFF' }} />
+      <Text style={{ fontSize: 17, color: 'rgba(232,237,245,0.7)', lineHeight: 1.7 }}>模型层决定下限：它保证"能写出能跑的代码"。但决定上限的，是你喂给它的上下文质量。</Text>
+    </Box>
+    <Box style={{ marginTop: 'auto', background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '20px 24px' }}>
+      <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <Box style={{ width: 10, height: 10, borderRadius: 5, background: '#35D0BA' }} />
+        <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#35D0BA' }}>本课判断</Text>
+      </Box>
+      <Text style={{ fontSize: 18, color: '#E8EDF5', lineHeight: 1.65 }}>与其纠结换哪个模型，不如先补齐上下文层——这是投入产出比最高的一层，也是第三章的全部内容。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 认知篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>05 / 21</Text>
+  </Box>
+</Slide>

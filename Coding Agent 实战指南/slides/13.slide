@@ -1,0 +1,68 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>规则文件：AGENTS.md 怎么写</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>60,000+ 仓库采用、30+ 工具原生读取 · 已由 Linux 基金会托管维护</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 668, height: 490 }}>
+    <CodeBlock
+      code={`# AGENTS.md — 项目约定（手写，< 150 行）
+
+## 技术栈
+- Next.js 15 App Router / TypeScript / Tailwind
+- 包管理器：pnpm（禁止混用 npm / yarn）
+
+## 常用命令
+- 测试：pnpm test   类型检查：pnpm typecheck
+- 改完业务代码必须跑测试，失败要解释原因
+
+## 约定（一条约定，配一个示例）
+- 新组件一律函数式 + hooks，禁止 class 组件
+- 错误处理：让异常上抛，由全局 handler 统一捕获
+  // 正确：函数内不 try/catch
+  // 错误：局部 catch 后只打日志
+
+## 边界（红线）
+- 禁止修改 src/generated/**（自动生成目录）
+- 禁止硬编码密钥、Token
+- 新增外部依赖必须说明理由`}
+      language='markdown'
+      width={668}
+      fontSize={13.5}
+      theme='github-dark'
+    />
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 776, top: 140, width: 440, height: 490, flexDirection: 'column', gap: 14 }}>
+    {[
+      { t: '手写，不要生成', d: '实测 LLM 生成的 AGENTS.md 在 8 组对照里 5 组降低任务成功率，平均多走 2.45–3.92 步。' },
+      { t: '150 行以内', d: '超过 150 行收益递减，推理成本反升 20–23%；上限 32KiB，短才有效。' },
+      { t: '一条约定配一个示例', d: '一个反例代码胜过三段描述："Show, don\'t tell" 是唯一有效的写法。' },
+      { t: '随 PR 一起更新', d: '规则变了当场改；过时的规则比没有规则更糟——它在主动误导 Agent。' },
+    ].map((item, idx) => (
+      <Box key={idx} style={{ flexDirection: 'row', gap: 14 }}>
+        <Box style={{ width: 26, height: 26, borderRadius: 13, background: 'rgba(76,141,255,0.15)', border: '1px solid rgba(76,141,255,0.5)', alignItems: 'center', justifyContent: 'center', marginTop: 2 }}>
+          <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#4C8DFF' }}>{idx + 1}</Text>
+        </Box>
+        <Box style={{ flex: 1, flexDirection: 'column', gap: 3 }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#E8EDF5' }}>{item.t}</Text>
+          <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.65)', lineHeight: 1.5 }}>{item.d}</Text>
+        </Box>
+      </Box>
+    ))}
+    <Box style={{ marginTop: 'auto', background: 'rgba(53,208,186,0.09)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 10, padding: '16px 20px' }}>
+      <Text style={{ fontSize: 16.5, color: '#E8EDF5', lineHeight: 1.6 }}><span style={{ fontWeight: 'bold', color: '#35D0BA' }}>本课判断：</span>空话会挤掉真规则。"写干净的、可维护的代码"这种话现在就删掉——Agent 本来就会。</Text>
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 实践篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>13 / 21</Text>
+  </Box>
+</Slide>

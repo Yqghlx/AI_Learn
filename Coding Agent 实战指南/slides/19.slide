@@ -1,0 +1,51 @@
+<Slide style={{ width: 1280, height: 720, background: '#0F1B2D', position: 'relative', overflow: 'hidden', padding: '20px 64px' }}>
+  <Box style={{ position: 'absolute', left: 64, top: 0, width: 1152, height: 120, flexDirection: 'column', justifyContent: 'center', gap: 8 }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+      <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#E8EDF5' }}>团队落地：90 天路线图</Text>
+      <Box style={{ width: 56, height: 3, background: '#35D0BA' }} />
+    </Box>
+    <Text style={{ fontSize: 16, color: 'rgba(232,237,245,0.5)' }}>每个阶段都有明确交付物——没有交付物的时间点就是走形式</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, top: 140, width: 660, height: 490, flexDirection: 'row', gap: 22 }}>
+    <Box style={{ width: 210, height: 490, background: 'linear-gradient(180deg, rgba(53,208,186,0.12) 0%, rgba(76,141,255,0.08) 100%)', border: '1px solid rgba(53,208,186,0.4)', borderRadius: 12, padding: '24px 20px', flexDirection: 'column' }}>
+      <Text style={{ fontSize: 38, fontWeight: 'bold', fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA', lineHeight: 1.1 }}>30<br />60<br />90</Text>
+      <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#E8EDF5', marginTop: 14 }}>三步走</Text>
+      <Text style={{ fontSize: 14.5, color: 'rgba(232,237,245,0.6)', lineHeight: 1.6, marginTop: 8 }}>先建规范、再跑试点、最后进流水线。</Text>
+      <Text style={{ marginTop: 'auto', fontSize: 14, color: 'rgba(232,237,245,0.5)', lineHeight: 1.6 }}>一汽的路径印证了顺序：规范先行，90% 研发启用后，AI 代码占比 25%、整体效率 +14%。</Text>
+    </Box>
+
+    <Box style={{ flex: 1, height: 490, flexDirection: 'column', gap: 14 }}>
+      {[
+        { d: 'Day 1-30', t: '建规范', items: ['手写 AGENTS.md：命令、约定、边界红线', '全员对齐四要素简报与增量循环'], out: '交付物：仓库规则文件 v1' },
+        { d: 'Day 31-60', t: '跑试点', items: ['2-3 名骨干 × 3 类真实任务', '每周复盘：采纳率、返工率基线'], out: '交付物：试点数据基线' },
+        { d: 'Day 61-90', t: '进流水线', items: ['验证步骤固化进 CI，Agent 直接消费', '安全护栏四件套上线，推广全团队'], out: '交付物：团队手册 + 治理基线' },
+      ].map((item, idx) => (
+        <Box key={idx} style={{ flex: 1, background: 'rgba(232,237,245,0.05)', border: '1px solid rgba(232,237,245,0.1)', borderRadius: 10, padding: '14px 20px', flexDirection: 'column', gap: 6 }}>
+          <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
+            <Text style={{ fontSize: 15, fontFamily: 'JetBrains Mono, monospace', color: '#4C8DFF' }}>{item.d}</Text>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#E8EDF5' }}>{item.t}</Text>
+          </Box>
+          {item.items.map((it, i) => (
+            <Text key={i} style={{ fontSize: 14, color: 'rgba(232,237,245,0.68)', lineHeight: 1.5 }}>· {it}</Text>
+          ))}
+          <Text style={{ marginTop: 'auto', fontSize: 13.5, color: '#35D0BA' }}>{item.out}</Text>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 764, top: 140, width: 452, height: 490, borderRadius: 12, overflow: 'hidden', border: '1px solid rgba(232,237,245,0.12)' }}>
+    <Image src="assets/scene_pair.png" style={{ width: 452, height: 490, objectFit: 'cover' }} />
+    <Box style={{ position: 'absolute', left: 0, right: 0, bottom: 0, height: 90, background: 'linear-gradient(0deg, rgba(15,27,45,0.9) 0%, rgba(15,27,45,0) 100%)' }} />
+    <Text style={{ position: 'absolute', left: 20, bottom: 14, fontSize: 14, color: 'rgba(232,237,245,0.8)' }}>人机各占一个工位：人定边界，Agent 干活</Text>
+  </Box>
+
+  <Box style={{ position: 'absolute', left: 64, bottom: 0, width: 1152, height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <Box style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
+      <Box style={{ width: 12, height: 12, background: 'rgba(53,208,186,0.25)', border: '1px solid rgba(53,208,186,0.6)', borderRadius: 2 }} />
+      <Text style={{ fontSize: 14, color: 'rgba(232,237,245,0.45)' }}>Coding Agent 实战指南 · 落地篇</Text>
+    </Box>
+    <Text style={{ fontSize: 14, fontFamily: 'JetBrains Mono, monospace', color: '#35D0BA' }}>19 / 21</Text>
+  </Box>
+</Slide>
