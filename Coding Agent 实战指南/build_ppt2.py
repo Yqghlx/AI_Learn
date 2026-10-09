@@ -280,18 +280,19 @@ for i, (tag, name, desc, hl) in enumerate(stages):
     tb(s, 146, y + 22, 110, 24, [[(tag, dict(size=14, color=TEAL if hl else BLUE, font=MONO))]])
     tb(s, 240, y + 16, 200, 32, [[(name, dict(size=21, bold=True))]])
     tb(s, 146, y + 58, 570, 62, [[(desc, dict(size=15, color=MUT68))]], line_spacing=1.5)
+tb(s, 780, 150, 436, 26, [[("分工的变化", dict(size=18, bold=True)), ("   同一个需求，两种工作方式", dict(size=13, color=MUT55))]])
 roles = [
-    ("你的角色", "执行环节（写代码）", "→ 边界环节（划定范围）+ 验收环节（定义完成）"),
-    ("AI 的角色", "返回建议文本", "→ 探索、规划、实施"),
-    ("主要瓶颈", "敲键盘的速度", "→ 需求表述精度 + 验收信号质量"),
+    ("你的角色", "过去 · 执行环节：亲手写代码", "现在 · 边界环节（划定范围）＋ 验收环节（定义“完成”）"),
+    ("AI 的角色", "过去 · 返回建议文本，看完还得你来改", "现在 · 探索、规划、实施，自己跑验证"),
+    ("主要瓶颈", "过去 · 你敲键盘的速度", "现在 · 需求表述的精度＋验收信号的质量"),
 ]
-for i, (lab, a, b) in enumerate(roles):
-    y = 150 + i * 102
-    rect(s, 780, y, 436, 92, fill=CARD, line=CARD_BR, radius=10)
-    tb(s, 804, y + 12, 160, 22, [[(lab, dict(size=13.5, color=BLUE, bold=True))]])
-    tb(s, 804, y + 38, 390, 22, [[(a, dict(size=14.5, color=MUT55))]])
-    tb(s, 804, y + 62, 390, 22, [[(b, dict(size=14.5, color=TXT))]])
-judge_card(s, 780, 470, 436, 158, "站在执行环节评价交付工具，是最常见的认知错位——用“写得不如我快”去衡量一个该用“是否省掉了整个下午”来判断的东西。", 16.5)
+for i, (lab, old, new) in enumerate(roles):
+    y = 190 + i * 108
+    rect(s, 780, y, 436, 98, fill=CARD, line=CARD_BR, radius=10)
+    tb(s, 804, y + 11, 200, 20, [[(lab, dict(size=13.5, color=BLUE, bold=True))]])
+    tb(s, 804, y + 33, 392, 20, [[("过去 · ", dict(size=13, bold=True, color=MUT55)), (old[5:], dict(size=13, color=MUT68))]])
+    tb(s, 804, y + 56, 392, 38, [[("现在 · ", dict(size=13, bold=True, color=TEAL)), (new[5:], dict(size=13, color=TXT))]], line_spacing=1.4)
+judge_card(s, 780, 518, 436, 142, "站在执行环节评价交付工具，是最常见的认知错位——用“写得不如我快”去衡量一个该用“是否省掉了整个下午”来判断的东西。", 15.5)
 footer(s, "认知篇", "05 / %d" % TOTAL)
 
 # ============ P06 扉页 方法篇 ============
@@ -405,7 +406,7 @@ footer(s, "方法篇", "10 / %d" % TOTAL)
 
 # ============ P11 扉页 工程篇 ============
 section_slide(prs, "03", os.path.join(A, "ch_practice.png"), "g_ch03.png", "工程篇", "产出差距在上下文结构，不在模型",
-              "同一个模型，在不同团队手里产出天差地别。差距来自四层：任务怎么写、规则怎么沉淀、能力怎么扩展、会话怎么治理。")
+              "同一个模型，在不同团队手里产出天差地别。差距来自四层：规则怎么沉淀、任务怎么写、能力怎么扩展、会话怎么治理。自底向上讲。")
 
 # ============ P12 上下文工程四层 (Hero) ============
 s = new_slide(prs)
@@ -415,7 +416,7 @@ layers = [
     ("④", "能力层", "按需", "技能、子智能体、外部工具、事件钩子——不常驻，需要时才加载", False),
     ("③", "任务层", "临时", "本次的任务简报：目标、上下文、约束、验收——每次任务临时提供", True),
     ("②", "规则层", "常驻", "每次会话都加载的项目约定——必须极短，只放普适的东西", True),
-    ("①", "模型层", "底座", "基座推理与代码能力——决定下限，你改不了", False),
+    ("①", "模型层", "底座", "基座推理与代码能力——决定下限，你改不了（认知篇已讲，本章自 ② 讲起）", False),
 ]
 widths = [420, 480, 540, 600, 660]
 for i, (no, name, tag, desc, hl) in enumerate(layers):
@@ -432,7 +433,39 @@ tb(s, 818, 306, 398, 96, [[("模型的差距是线性的，上下文结构的差
 judge_card(s, 800, 440, 416, 190, "模型决定下限，上下文结构决定上限。换模型不如补上下文——这是这门课最值钱的一句话。", 17.5)
 footer(s, "工程篇", "12 / %d" % TOTAL)
 
-# ============ P13 任务层 ============
+# ============ P13 规则层 ============
+s = new_slide(prs)
+header(s, "规则层：把默契写进仓库", "每次会话都加载——所以只放普适的东西，并且必须极短")
+rect(s, 64, 150, 316, 470, fill=CARD, line=TEAL_BR, radius=10)
+tb(s, 88, 166, 200, 26, [[("✓ 应该写", dict(size=18, bold=True, color=TEAL))]])
+inc = ["它猜不出来的构建/测试命令", "与默认习惯不同的代码风格", "测试指令与偏好的运行器", "仓库礼仪：分支命名、PR 规范", "本项目特有的架构决策", "环境怪癖与不自明的坑"]
+for i, t in enumerate(inc):
+    y = 204 + i * 66
+    rect(s, 88, y + 6, 8, 8, fill=TEAL, radius=4)
+    tb(s, 104, y, 256, 58, [[(t, dict(size=14, color=MUT85))]], line_spacing=1.4)
+rect(s, 396, 150, 316, 470, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 420, 166, 200, 26, [[("✕ 不该写", dict(size=18, bold=True, color=MUT55))]])
+exc = ["读一遍代码就能明白的东西", "语言通用规范（它本来就会）", "详细 API 文档（改为给链接）", "频繁变动的信息", "逐文件的代码库描述", "“写整洁代码”式正确废话"]
+for i, t in enumerate(exc):
+    y = 204 + i * 66
+    rect(s, 420, y + 6, 8, 8, fill=MUT50, radius=4)
+    tb(s, 436, y, 256, 58, [[(t, dict(size=14, color=MUT68))]], line_spacing=1.4)
+rect(s, 740, 150, 476, 118, fill=BLUE_BG, line=BLUE_BR, radius=10)
+tb(s, 764, 164, 300, 26, [[("篇幅纪律（最重要）", dict(size=17, bold=True, color=BLUE))]])
+tb(s, 764, 196, 428, 62, [[("对每一行问：“删掉这行会让它犯错吗？” 答不上来就删。臃肿的规则会让它忽略你真正的指令——目标 < 100 行。", dict(size=14, color=TXT))]], line_spacing=1.5)
+rect(s, 740, 284, 476, 170, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 764, 300, 300, 26, [[("排错指南", dict(size=17, bold=True))]])
+debugs = [("明令禁止仍反复出现", "→ 文件太长，规则被淹没：剪"),
+          ("问了规则里已答的问题", "→ 表述有歧义：改写得更具体"),
+          ("单条指令总被跳过", "→ 只在这一行加强调，别处处加")]
+for i, (a, b) in enumerate(debugs):
+    y = 336 + i * 38
+    tb(s, 764, y, 220, 32, [[(a, dict(size=13.5, color=MUT78))]])
+    tb(s, 976, y, 224, 32, [[(b, dict(size=13.5, color=TEAL))]])
+judge_card(s, 740, 470, 476, 158, "把它当代码对待：出问题就审查、定期修剪、用“行为是否真的改变”验证改动。纳入 git 团队共建——这份文件的价值随时间复利增长。", 16)
+footer(s, "工程篇", "13 / %d" % TOTAL)
+
+# ============ P14 任务层 ============
 s = new_slide(prs)
 header(s, "任务层：把提示词写具体", "它能推断意图，但读不了你的心——四种策略，一份简报")
 strats = [
@@ -468,38 +501,6 @@ for i, (t, d) in enumerate(elems):
     tb(s, x, y, 250, 22, [[(t, dict(size=14.5, bold=True, color=TEAL, font=MONO))]])
     tb(s, x, y + 24, 250, 30, [[(d, dict(size=12.5, color=MUT72))]], line_spacing=1.35)
 bottom_judge(s, 64, 546, 1152, 76, "明确程度与任务确定性成正比：探索期可以用模糊提示找灵感（“你觉得这个文件有哪些可改进？”），交付期必须给出可判定的验收。")
-footer(s, "工程篇", "13 / %d" % TOTAL)
-
-# ============ P14 规则层 ============
-s = new_slide(prs)
-header(s, "规则层：把默契写进仓库", "每次会话都加载——所以只放普适的东西，并且必须极短")
-rect(s, 64, 150, 316, 470, fill=CARD, line=TEAL_BR, radius=10)
-tb(s, 88, 166, 200, 26, [[("✓ 应该写", dict(size=18, bold=True, color=TEAL))]])
-inc = ["它猜不出来的构建/测试命令", "与默认习惯不同的代码风格", "测试指令与偏好的运行器", "仓库礼仪：分支命名、PR 规范", "本项目特有的架构决策", "环境怪癖与不自明的坑"]
-for i, t in enumerate(inc):
-    y = 204 + i * 66
-    rect(s, 88, y + 6, 8, 8, fill=TEAL, radius=4)
-    tb(s, 104, y, 256, 58, [[(t, dict(size=14, color=MUT85))]], line_spacing=1.4)
-rect(s, 396, 150, 316, 470, fill=CARD, line=CARD_BR, radius=10)
-tb(s, 420, 166, 200, 26, [[("✕ 不该写", dict(size=18, bold=True, color=MUT55))]])
-exc = ["读一遍代码就能明白的东西", "语言通用规范（它本来就会）", "详细 API 文档（改为给链接）", "频繁变动的信息", "逐文件的代码库描述", "“写整洁代码”式正确废话"]
-for i, t in enumerate(exc):
-    y = 204 + i * 66
-    rect(s, 420, y + 6, 8, 8, fill=MUT50, radius=4)
-    tb(s, 436, y, 256, 58, [[(t, dict(size=14, color=MUT68))]], line_spacing=1.4)
-rect(s, 740, 150, 476, 118, fill=BLUE_BG, line=BLUE_BR, radius=10)
-tb(s, 764, 164, 300, 26, [[("篇幅纪律（最重要）", dict(size=17, bold=True, color=BLUE))]])
-tb(s, 764, 196, 428, 62, [[("对每一行问：“删掉这行会让它犯错吗？” 答不上来就删。臃肿的规则会让它忽略你真正的指令——目标 < 100 行。", dict(size=14, color=TXT))]], line_spacing=1.5)
-rect(s, 740, 284, 476, 170, fill=CARD, line=CARD_BR, radius=10)
-tb(s, 764, 300, 300, 26, [[("排错指南", dict(size=17, bold=True))]])
-debugs = [("明令禁止仍反复出现", "→ 文件太长，规则被淹没：剪"),
-          ("问了规则里已答的问题", "→ 表述有歧义：改写得更具体"),
-          ("单条指令总被跳过", "→ 只在这一行加强调，别处处加")]
-for i, (a, b) in enumerate(debugs):
-    y = 336 + i * 38
-    tb(s, 764, y, 220, 32, [[(a, dict(size=13.5, color=MUT78))]])
-    tb(s, 976, y, 224, 32, [[(b, dict(size=13.5, color=TEAL))]])
-judge_card(s, 740, 470, 476, 158, "把它当代码对待：出问题就审查、定期修剪、用“行为是否真的改变”验证改动。纳入 git 团队共建——这份文件的价值随时间复利增长。", 16)
 footer(s, "工程篇", "14 / %d" % TOTAL)
 
 # ============ P15 能力层：选型 ============
