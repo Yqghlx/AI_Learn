@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import re
 """构建《Coding Agent 工程实践（通用版）》演示文稿 — 深空科技风 1280x720
 厂商无关：全篇不出现任何具体产品名，方法论通用。"""
 import os
@@ -37,7 +38,7 @@ TBL_BG = RGBColor(0x14, 0x1F, 0x30)
 
 CN = "Microsoft YaHei"
 MONO = "Consolas"
-TOTAL = 29
+TOTAL = 31
 
 
 def emu(px):
@@ -155,6 +156,13 @@ def header(slide, title, sub, accent=None):
     tb(slide, 136, 72, 1000, 26, [[(sub, dict(size=16, color=MUT55))]])
 
 
+def demo_badge(slide, n=1):
+    """右上角「现场演示」角标——编号只写进备注栏，页面上不出现在听众视野里。"""
+    label = "现场演示" if n == 1 else "现场演示 ×%d" % n
+    rect(slide, 1064, 32, 152, 32, fill=BLUE_BG, line=BLUE_BR, radius=16)
+    tb(slide, 1064, 38, 152, 22, [[(label, dict(size=12.5, bold=True, color=BLUE))]], align=PP_ALIGN.CENTER)
+
+
 def footer(slide, chapter):
     """页码按幻灯片实际位置自动计算——插入或删除页面后无需手工重编号。"""
     n = len(prs.slides._sldIdLst)
@@ -166,14 +174,14 @@ def footer(slide, chapter):
 def judge_card(slide, x, y, w, h, text, size=17.5):
     rect(slide, x, y, w, h, fill=TEAL_BG, line=TEAL_BR, radius=10)
     rect(slide, x + 24, y + 20, 10, 10, fill=TEAL, radius=5)
-    tb(slide, x + 44, y + 14, 120, 22, [[("本课判断", dict(size=16, bold=True, color=TEAL))]])
+    tb(slide, x + 44, y + 14, 120, 22, [[("结论", dict(size=16, bold=True, color=TEAL))]])
     tb(slide, x + 24, y + 44, w - 48, h - 58, [[(text, dict(size=size, color=TXT))]], line_spacing=1.6)
 
 
 def bottom_judge(slide, x, y, w, h, text, size=15.5):
     rect(slide, x, y, w, h, fill=TEAL_BG, line=TEAL_BR, radius=10)
     rect(slide, x + 22, y + h / 2 - 5, 10, 10, fill=TEAL, radius=5)
-    tb(slide, x + 42, y, 80, h, [[("判断", dict(size=15, bold=True, color=TEAL))]], anchor=MSO_ANCHOR.MIDDLE)
+    tb(slide, x + 42, y, 80, h, [[("结论", dict(size=15, bold=True, color=TEAL))]], anchor=MSO_ANCHOR.MIDDLE)
     tb(slide, x + 112, y + 8, w - 132, h - 16, [[(text, dict(size=size, color=TXT))]], line_spacing=1.45, anchor=MSO_ANCHOR.MIDDLE)
 
 
@@ -207,7 +215,10 @@ tb(s, 64, 400, 660, 40, [[("通用编码智能体方法论 · 从“会用”到
 rect(s, 64, 630, 150, 34, fill=CARD, line=CARD_BR, radius=17)
 rect(s, 78, 643, 8, 8, fill=TEAL, radius=4)
 tb(s, 96, 637, 120, 22, [[("研发效能内训", dict(size=14, color=TXT))]])
-tb(s, 230, 637, 120, 22, [[("2026.10", dict(size=14, color=MUT55, font=MONO))]])
+tb(s, 230, 637, 70, 22, [[("2026.10", dict(size=14, color=MUT55, font=MONO))]])
+rect(s, 310, 630, 152, 34, fill=TEAL_BG, line=TEAL_BR, radius=17)
+rect(s, 324, 643, 8, 8, fill=TEAL, radius=4)
+tb(s, 342, 637, 110, 22, [[("主讲 · 杨庆刚", dict(size=14, color=TXT))]])
 rect(s, 980, 650, 300, 70, fill=BG)
 tb(s, 1000, 676, 260, 22, [[("BEST PRACTICES 101", dict(size=13, color=MUT50, font=MONO, spacing=2))]], align=PP_ALIGN.RIGHT)
 
@@ -217,26 +228,27 @@ tb(s, 64, 30, 400, 46, [[("目录", dict(size=36, bold=True))]])
 hline(s, 64, 82, 56, TEAL, 3)
 rect(s, 64, 160, 6, 120, fill=TEAL)
 tb(s, 64, 300, 300, 80, [[("五个问题，", dict(size=24, bold=True))], [("一条方法论主线", dict(size=24, bold=True))]], line_spacing=1.4)
-tb(s, 64, 392, 300, 130, [[("第 1 章先解决“用哪个”，其余四章讲方法。不绑定任何一款工具——换一个 Agent，这套方法原样生效。", dict(size=16, color=MUT55))]], line_spacing=1.7)
+tb(s, 64, 380, 300, 150, [[("第 1 章先解决“用哪个”，第 2 章给你看真实效果，其余四章讲方法。不绑定任何一款工具——换一个 Agent，这套方法原样生效。", dict(size=16, color=MUT55))]], line_spacing=1.7)
 toc = [
-    ("01", "选型篇 · 市场、形态与怎么选", "现在有哪些工具，我该用哪个？", "P03 - P08"),
-    ("02", "认知篇 · 一个约束与一种心智", "为什么这套方法有效，而不是碰巧有用？", "P09 - P11"),
-    ("03", "方法篇 · 单次任务的标准动作", "一个需求从提出到合入，每步该怎么做？", "P12 - P16"),
-    ("04", "工程篇 · 上下文工程四层", "产出质量的差距，到底从哪一层来？", "P17 - P23"),
-    ("05", "规模化篇 · 权限、并行与落地", "如何从一个人快，走到整个团队快？", "P24 - P28"),
+    ("01", "选型篇 · 市场、形态与怎么选", "现在有哪些工具，我该用哪个？", "P00 - P00"),
+    ("02", "实战篇 · 八段真实会话", "它到底能做成什么样？先建立印象。", "P00 - P00"),
+    ("03", "认知篇 · 一个约束与一种心智", "为什么这套方法有效，而不是碰巧有用？", "P00 - P00"),
+    ("04", "方法篇 · 单次任务的标准动作", "一个需求从提出到合入，每步该怎么做？", "P00 - P00"),
+    ("05", "工程篇 · 上下文工程四层", "产出质量的差距，到底从哪一层来？", "P00 - P00"),
+    ("06", "规模化篇 · 权限、并行与落地", "如何从一个人快，走到整个团队快？", "P00 - P00"),
 ]
 for i, (no, title, q, pg) in enumerate(toc):
-    y = 132 + i * 102
-    rect(s, 420, y, 796, 96, fill=CARD, line=CARD_BR, radius=10)
-    tb(s, 448, y + 22, 70, 46, [[(no, dict(size=30, bold=True, color=TEAL if i == 3 else BLUE, font=MONO))]])
-    tb(s, 530, y + 14, 560, 32, [[(title, dict(size=22, bold=True))]])
-    tb(s, 530, y + 52, 560, 26, [[(q, dict(size=16, color=MUT55))]])
-    tb(s, 1090, y + 36, 110, 24, [[(pg, dict(size=14, color=MUT50, font=MONO))]], align=PP_ALIGN.RIGHT)
+    y = 128 + i * 88
+    rect(s, 420, y, 796, 78, fill=CARD, line=CARD_BR, radius=10)
+    tb(s, 448, y + 18, 60, 40, [[(no, dict(size=26, bold=True, color=TEAL if i == 4 else BLUE, font=MONO))]])
+    tb(s, 522, y + 10, 560, 28, [[(title, dict(size=20, bold=True))]])
+    tb(s, 522, y + 44, 560, 24, [[(q, dict(size=14.5, color=MUT55))]])
+    tb(s, 1090, y + 28, 110, 22, [[(pg, dict(size=13, color=MUT50, font=MONO))]], align=PP_ALIGN.RIGHT)
 footer(s, "目录")
 
 # ============ P03 扉页 选型篇 ============
 section_slide(prs, "01", os.path.join(A, "ch_landscape.png"), "g_ch00.png", "选型篇", "先看战场，再定工具",
-              "这一章只回答两件事：现在有什么、你该选哪个。后面四章讲的方法不依赖你选了谁——所以从第 2 章起，不再提任何产品名。")
+              "这一章只回答两件事：现在有什么、你该选哪个。下一章要打开几段真实会话，自然会提到工具名；再往后的四章，不依赖你选了谁。")
 
 # ============ P04 全球格局 ============
 s = new_slide(prs)
@@ -278,7 +290,7 @@ for i, (n, p) in enumerate(ent):
     rect(s, 236, y + 4, 150, 16, fill=ROW_BG, radius=8)
     rect(s, 236, y + 4, max(6, int(p * 3.15)), 16, fill=TEAL if i == 0 else BLUE, radius=8)
     tb(s, 394, y, 46, 22, [[("%.1f%%" % p, dict(size=12, color=MUT78))]])
-tb(s, 84, 400, 330, 32, [[("注：ZCode 是智谱当前主推的编程智能体，CodeGeeX 为其早期 IDE 插件品牌。", dict(size=11, color=MUT50))]], line_spacing=1.3)
+
 rect(s, 454, 140, 370, 300, fill=CARD, line=CARD_BR, radius=10)
 tb(s, 478, 156, 330, 26, [[("个人侧 · IDE 使用率", dict(size=17, bold=True))]])
 tb(s, 478, 184, 330, 22, [[("媒体引用口径 · 2026 · 实际在用", dict(size=12, color=MUT50))]])
@@ -306,14 +318,15 @@ for i, (n, t, d) in enumerate(new3):
 judge_card(s, 64, 456, 740, 176, "国内“用的人多”和“赚的钱多”是两件事，份额榜单还会漏掉刚入场的人。更值得注意的是：MiniMax Code 与 MiMo Code 都直接基于开源 OpenCode 构建——模型厂商也不自己写 harness，而是 fork 开源 harness 再叠自己的模型。选型别看份额，看合规边界、工具链与自主权。", 16)
 rect(s, 820, 456, 396, 176, fill=CARD, line=CARD_BR, radius=10)
 tb(s, 844, 472, 340, 26, [[("数据来源与可信度", dict(size=16.5, bold=True, color=BLUE))]])
-tb(s, 844, 506, 350, 118, [[("份额为 IDC《中国 AI 编程市场》报告的二手引用；新入场三家信息来自 2026-06 至 09 的官方发布与公开报道，份额数据尚未覆盖。演讲前建议核对原始报告。", dict(size=12.5, color=MUT68))]], line_spacing=1.5)
+tb(s, 844, 506, 350, 118, [[("份额为 IDC《中国 AI 编程市场》报告的二手引用；三家新入场产品信息来自 2026-06 至 09 的官方发布，份额尚未覆盖。", dict(size=12.5, color=MUT68))]], line_spacing=1.5)
 footer(s, "选型篇")
 
 # ============ P06 开源路线 ============
 s = new_slide(prs)
 header(s, "开源路线：Harness 是可替换的那一层", "MIT 许可、可自托管、可换模型——同一个模型，换一个 harness 就是另一个 Agent")
+demo_badge(s, 1)
 projs = [
-    ("DeepSeek Harness (dsh)", "插件化运行底座",
+    ("DeepSeek Harness", "插件化运行底座",
      [("许可 / 状态", "MIT · v0.1 预览版"), ("架构", "一切皆插件 · Cordis 内核"),
       ("上下文", "追加式事件流 · 自动压缩"), ("沙箱", "内置，可热插拔"),
       ("代价", "接口仍有破坏性变更")]),
@@ -401,11 +414,43 @@ for i, (no, col, sub, body) in enumerate(steps):
     tb(s, 96, y + 22, 90, 28, [[(no, dict(size=20, bold=True, color=col, font=MONO))]])
     tb(s, 190, y + 16, 420, 24, [[(sub, dict(size=15, bold=True))]])
     tb(s, 190, y + 46, 1000, 32, [[(body, dict(size=13.5, color=MUT78))]], line_spacing=1.35)
-bottom_judge(s, 64, 470, 1152, 126, "统一比最优重要：团队选型的产出不是「选到最好的那个」，而是「大家用同一个」——规则文件、技能库、钩子配置都要沉淀在同一套工具上。从第 2 章起全篇不提产品名，后面四章的方法不依赖你选了谁。", 17)
+bottom_judge(s, 64, 470, 1152, 126, "统一比最优重要：团队选型的产出不是「选到最好的那个」，而是「大家用同一个」——规则文件、技能库、钩子配置都要沉淀在同一套工具上。下一章要看真实会话，会提到工具名；从第 3 章起，后面四章不再提产品名，也不依赖你选了谁。", 17)
 footer(s, "选型篇")
 
-# ============ P08 扉页 认知篇 ============
-section_slide(prs, "02", os.path.join(A, "ch_cognition.png"), "g_ch01.png", "认知篇", "先理解约束，再使用方法",
+# ============ P09 扉页 实战篇 ============
+section_slide(prs, "02", os.path.join(A, "ch_demo.png"), "g_ch05.png", "实战篇", "先看看它真能干什么",
+              "在讲任何纪律之前，先建立印象。接下来的索引表里是八段真实会话：同一个模型、同一套做法，在三个代码库里反复成立。")
+
+# ============ P10 会话索引（第 2 章唯一内容页） ============
+s = new_slide(prs)
+header(s, "八段真实会话：从最朴素的用法，到最严格的用法", "先看它做到了什么——为什么这样有效，从第 3 章开始解释")
+rect(s, 64, 140, 1152, 486, fill=CARD, line=CARD_BR, radius=10)
+for x, w, h in [(84, 40, "#"), (130, 480, "它替我们做成了什么"), (630, 470, "背后那条方法 · 见第几页")]:
+    tb(s, x, 150, w, 24, [[(h, dict(size=12.5, bold=True, color=MUT55))]])
+hline(s, 80, 178, 1120, CARD_BR, 1)
+demos = [
+    ("①", "最简单的用法：一句话需求，从头做到尾", "基线 · 不加任何方法时的表现，后面每一段都是在它之上加一层", "Zcode › V3 › third · 消息 1–2"),
+    ("②", "先计划再执行：先出方案，你认可了才动手", "@@单次任务的标准动作 · 规划先于编码", "Zcode › StdCommuProtocol › minor · 倒数第 2–1 条"),
+    ("③", "改完一个问题后，让它自己回头审查一遍", "@@第一条纪律：给它一个可运行的验证 · 让它自己跑完并读结果", "Zcode › StdCommuProtocol › minor · 消息 1–6"),
+    ("④", "对抗式审查：换一个全新上下文让它来找茬", "@@规模化：从一个 Agent 到一条流水线 · Writer / Reviewer 与新上下文评审", "Zcode › StdCommuProtocol › main · 消息 3–9"),
+    ("⑤", "与同事同改一个项目时，定位问题出在哪", "@@任务层：把提示词写具体 · 指向信息源，让它自己去查", "Zcode › V3 › main · 倒数第 13–10 条"),
+    ("⑥", "给确定的设计图，而不是一句「做得好看点」", "@@提示词改写：三组实战对照 · UI 改动要有视觉验证", "Zcode › V3 › main · 拉到底后第 3–4 条"),
+    ("⑦", "同事发来新版 dll：先让它分析，再动手开发", "@@单次任务的标准动作 · 依赖变了，探索阶段就得重跑一遍", "Zcode › V3 › minor · 拉到底后第 5–9 条"),
+    ("⑧", "开源 harness 的实机演示", "@@开源路线：Harness 是可替换的那一层 · 换一层底座，做法不变", "dsh › 液体处理平台 › main"),
+]
+for i, (no, what, method, loc) in enumerate(demos):
+    y = 184 + i * 54
+    if i % 2 == 0:
+        rect(s, 72, y, 1136, 50, fill=ROW_BG, radius=6)
+    tb(s, 84, y + 12, 40, 24, [[(no, dict(size=15, bold=True, color=TEAL, font=MONO))]])
+    tb(s, 130, y + 10, 480, 34, [[(what, dict(size=12.5, bold=True, color=TXT))]], line_spacing=1.3)
+    tb(s, 630, y + 10, 470, 34, [[(method, dict(size=11.5, color=MUT72))]], line_spacing=1.3)
+    _ = loc  # 会话位置只写进备注栏
+tb(s, 64, 640, 1152, 32, [[("发生在三个不同的真实项目里，跨两种运行环境——工具换了，这套做法没有换。", dict(size=12.5, color=MUT55))]], line_spacing=1.4)
+footer(s, "实战篇")
+
+# ============ P14 扉页 认知篇 ============
+section_slide(prs, "03", os.path.join(A, "ch_cognition.png"), "g_ch01.png", "认知篇", "先理解约束，再使用方法",
               "方法论不解释“为什么”，就只能靠记忆。理解这一个约束，后面所有做法都是它的推论——你不需要背清单。")
 
 # ============ P04 第一性原理 ============
@@ -434,7 +479,7 @@ for i, (t, d) in enumerate(coro):
     tb(s, 88, y + 44, 692, 40, [[(d, dict(size=14, color=MUT78))]], line_spacing=1.45)
 rect(s, 830, 310, 4, 88, fill=BLUE)
 tb(s, 848, 306, 368, 100, [[("上下文窗口装着整场对话：你的每条消息、它读过的每个文件、每条命令的输出。", dict(size=15.5, color=MUT72))]], line_spacing=1.6)
-judge_card(s, 830, 432, 386, 192, "看不见的约束无法被管理——先让上下文占用始终可见（状态栏、用量显示），再谈优化。这和性能工程里“不上监控不谈调优”是同一回事。", 16.5)
+judge_card(s, 830, 432, 386, 214, "把不该留在窗口里的挪出去（推论一、二），把留下来的花在能判定对错的东西上（推论三）。前提是它得可见——看不见的约束，谈不上管理。", 16.5)
 footer(s, "认知篇")
 
 # ============ P05 心智模型 ============
@@ -465,16 +510,17 @@ for i, (lab, old, new) in enumerate(roles):
     tb(s, 804, y + 11, 200, 20, [[(lab, dict(size=13.5, color=BLUE, bold=True))]])
     tb(s, 804, y + 33, 392, 20, [[("过去 · ", dict(size=13, bold=True, color=MUT55)), (old[5:], dict(size=13, color=MUT68))]])
     tb(s, 804, y + 56, 392, 38, [[("现在 · ", dict(size=13, bold=True, color=TEAL)), (new[5:], dict(size=13, color=TXT))]], line_spacing=1.4)
-judge_card(s, 780, 518, 436, 142, "站在执行环节评价交付工具，是最常见的认知错位——用“写得不如我快”去衡量一个该用“是否省掉了整个下午”来判断的东西。", 15.5)
+judge_card(s, 780, 500, 436, 170, "变的是人的位置，不是人的必要性：过去在执行环节，现在在边界和验收环节。评价标准也要跟着换——不是「写得快不快」，而是「有没有省掉整个下午」。", 15.5)
 footer(s, "认知篇")
 
 # ============ P06 扉页 方法篇 ============
-section_slide(prs, "03", os.path.join(A, "ch_landscape.png"), "g_ch02.png", "方法篇", "一次需求，四个标准动作",
+section_slide(prs, "04", os.path.join(A, "ch_landscape.png"), "g_ch02.png", "方法篇", "一次需求，四个标准动作",
               "给可运行的验证、先探索再编码、让它采访你、规格先行——四件事，把“玄学体验”变成“稳定产出”。")
 
 # ============ P07 第一条纪律 (Hero) ============
 s = new_slide(prs)
 header(s, "第一条纪律：给它一个可运行的验证", "没有验证手段时，“看起来做完了”是唯一信号——于是你本人成了验证回路")
+demo_badge(s, 1)
 rect(s, 64, 150, 560, 118, fill=CARD, line=CARD_BR, radius=10)
 tb(s, 88, 164, 200, 24, [[("没有验证", dict(size=17, bold=True, color=BLUE))]])
 tb(s, 88, 194, 510, 66, [[("它只能以“看起来像”为准。每个错误都等你发现——你把验证从机器搬回了自己身上，而且是串行的。", dict(size=14.5, color=MUT72))]], line_spacing=1.5)
@@ -503,6 +549,7 @@ footer(s, "方法篇")
 # ============ P08 提示词改写实战 ============
 s = new_slide(prs)
 header(s, "提示词改写：三组实战对照", "加约束比加形容词有效——每一组“好”，都附带了可判定的验收")
+demo_badge(s, 1)
 pairs = [
     ("给出验收标准", "实现一个校验邮箱的函数",
      "写一个 validateEmail：user@example.com → true、invalid → false、user@.com → false。实现后运行测试，直到全部通过。"),
@@ -526,6 +573,7 @@ footer(s, "方法篇")
 # ============ P09 工作流四阶段 ============
 s = new_slide(prs)
 header(s, "单次任务的标准动作", "探索 → 规划 → 编码 → 提交——分开，是因为两段旅程的失败成本完全不同")
+demo_badge(s, 3)
 steps = [
     ("01", "探索", "只读模式下读懂相关代码，期间不得修改。让它讲清现状，而不是急着动手。"),
     ("02", "规划", "产出实施方案：改哪些文件、流程是什么。人可以直接修改方案再批准。"),
@@ -578,7 +626,7 @@ judge_card(s, 660, 388, 556, 240, "口述需求、边做边改，会让每一次
 footer(s, "方法篇")
 
 # ============ P11 扉页 工程篇 ============
-section_slide(prs, "04", os.path.join(A, "ch_practice.png"), "g_ch03.png", "工程篇", "产出差距在上下文结构，不在模型",
+section_slide(prs, "05", os.path.join(A, "ch_practice.png"), "g_ch03.png", "工程篇", "产出差距在上下文结构，不在模型",
               "同一个模型，在不同团队手里产出天差地别。差距来自四层：规则怎么沉淀、任务怎么写、能力怎么扩展、会话怎么治理。自底向上讲。")
 
 # ============ P12 上下文工程四层 (Hero) ============
@@ -589,7 +637,7 @@ layers = [
     ("④", "能力层", "按需", "技能、子智能体、外部工具、事件钩子——不常驻，需要时才加载", False),
     ("③", "任务层", "临时", "本次的任务简报：目标、上下文、约束、验收——每次任务临时提供", True),
     ("②", "规则层", "常驻", "每次会话都加载的项目约定——必须极短，只放普适的东西", True),
-    ("①", "模型层", "底座", "基座推理与代码能力——决定下限，你改不了（认知篇已讲，本章自 ② 讲起）", False),
+    ("①", "模型层", "底座", "基座推理与代码能力——决定下限，我们换不了（第 3 章已讲过）", False),
 ]
 widths = [420, 480, 540, 600, 660]
 for i, (no, name, tag, desc, hl) in enumerate(layers):
@@ -635,12 +683,13 @@ for i, (a, b) in enumerate(debugs):
     y = 336 + i * 38
     tb(s, 764, y, 220, 32, [[(a, dict(size=13.5, color=MUT78))]])
     tb(s, 976, y, 224, 32, [[(b, dict(size=13.5, color=TEAL))]])
-judge_card(s, 740, 470, 476, 158, "把它当代码对待：出问题就审查、定期修剪、用“行为是否真的改变”验证改动。纳入 git 团队共建——这份文件的价值随时间复利增长。", 16)
+judge_card(s, 740, 470, 476, 172, "把它当代码对待：出问题就审查、定期修剪、用“行为是否真的改变”验证改动。纳入 git 团队共建——这份文件的价值随时间复利增长。", 16)
 footer(s, "工程篇")
 
 # ============ P14 任务层 ============
 s = new_slide(prs)
 header(s, "任务层：把提示词写具体", "它能推断意图，但读不了你的心——四种策略，一份简报")
+demo_badge(s, 1)
 strats = [
     ("限定范围", "“为 foo.py 写一个覆盖‘用户已登出’边界情况的测试。不要用 mock。”"),
     ("指向信息源", "“翻一下这个类的 git 历史，总结它的 API 是怎么演变成这样的。”"),
@@ -769,7 +818,7 @@ bottom_judge(s, 64, 574, 1152, 76, "最好的结果来自紧密的反馈循环�
 footer(s, "工程篇")
 
 # ============ P18 扉页 规模化篇 ============
-section_slide(prs, "05", os.path.join(A, "ch_rollout.png"), "g_ch04.png", "规模化篇", "先画笼子，再放大产出",
+section_slide(prs, "06", os.path.join(A, "ch_rollout.png"), "g_ch04.png", "规模化篇", "先画笼子，再放大产出",
               "先把一个智能体用得有效，再用并行、无头与流水线把产出成倍放大——顺序反了，只会把低效复制 N 份。")
 
 # ============ P19 权限与安全 ============
@@ -809,6 +858,7 @@ footer(s, "规模化篇")
 # ============ P20 规模化路径 ============
 s = new_slide(prs)
 header(s, "规模化：从一个 Agent 到一条流水线", "先让一个智能体用得有效，再成倍放大——顺序反了，只会复制低效")
+demo_badge(s, 1)
 paths = [
     ("无头模式", "命令行非交互调用 + 结构化输出（JSON），接进 CI、提交前钩子与自动化脚本。"),
     ("并行会话", "在隔离检出中同时跑多个会话，改动互不覆盖；会话之间可传递发现。"),
@@ -874,7 +924,7 @@ for i, t in enumerate(diag):
     y = 210 + i * 48
     tb(s, 888, y, 300, 40, [[(t, dict(size=14.5, color=MUT85))]], line_spacing=1.4)
 tb(s, 888, 404, 300, 36, [[("八成问题落在其中一条。", dict(size=14, color=TEAL, bold=True))]])
-judge_card(s, 864, 470, 352, 156, "这些不是“工具不行”，而是工作方法问题——方法对了，换一个 Agent 也是同样的效果。", 16)
+judge_card(s, 864, 470, 352, 168, "这些不是“工具不行”，而是工作方法问题——方法对了，换一个 Agent 也是同样的效果。", 16)
 footer(s, "规模化篇")
 
 # ============ P22 落地路线 ============
@@ -903,10 +953,10 @@ for i, (t, d) in enumerate(metrics):
     rect(s, 740, y, 476, 86, fill=CARD, line=CARD_BR, radius=10)
     tb(s, 764, y + 12, 120, 28, [[(t, dict(size=16.5, bold=True, color=TEAL))]])
     tb(s, 764, y + 44, 428, 36, [[(d, dict(size=13, color=MUT72))]], line_spacing=1.4)
-judge_card(s, 740, 538, 476, 122, "只统计“生成了多少代码”会奖励错误行为——产出更多代码，从来不是工程目标。", 16)
+judge_card(s, 740, 538, 476, 134, "只统计“生成了多少代码”会奖励错误行为——产出更多代码，从来不是工程目标。", 16)
 footer(s, "规模化篇")
 
-# ============ P23 结束页 (Hero) ============
+# ============ P30 结束页 (Hero) ============
 s = new_slide(prs)
 tb(s, 64, 96, 300, 120, [[("“", dict(size=120, bold=True, color=TEAL, font=MONO))]])
 tb(s, 64, 190, 1080, 160, [[("这套方法的终点，不是让 AI 写代码——", dict(size=34, bold=True))],
@@ -925,6 +975,408 @@ for i, (tag, d) in enumerate(acts):
     tb(s, x + 22, 484, 324, 72, [[(d, dict(size=14, color=MUT78))]], line_spacing=1.5)
 tb(s, 64, 604, 1152, 44, [[("何时打破规则：深陷复杂问题时让上下文累积；探索性任务跳过规划；想先看它怎么解释问题时用模糊提示——直觉比任何指南可靠，而直觉从实践中长出来。", dict(size=13.5, color=MUT55))]], line_spacing=1.5)
 tb(s, 980, 676, 300, 22, [[("ENGINEERING PRACTICES · 2026.10", dict(size=12, color=MUT50, font=MONO, spacing=2))]], align=PP_ALIGN.RIGHT)
+
+# ============ 交叉引用自动回填（@@页面标题 -> Pxx） ============
+TITLE_PT = 36 * 0.75  # set_run() 统一乘 0.75，故 header 的 size=36 落地为 27pt
+
+
+def build_title_index():
+    """按页标题字号建立「标题 → 页码」索引。"""
+    idx = {}
+    for i, s in enumerate(prs.slides, 1):
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            hit = False
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    if run.font.size and abs(run.font.size.pt - TITLE_PT) < 0.6:
+                        t = sh.text_frame.text.strip()
+                        if t and t not in idx:
+                            idx[t] = i
+                        hit = True
+                        break
+                if hit:
+                    break
+    return idx
+
+
+def fill_cross_refs(titles):
+    """把正文里的 @@标题 占位替换成真实页码——页面顺序再变也不用改引用。"""
+    def repl(m):
+        key = m.group(1).strip()
+        if key not in titles:
+            print("  !! unresolved ref:", repr(key))
+            return m.group(0)
+        return "P%02d " % titles[key]
+    n = 0
+    for s in prs.slides:
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            for para in sh.text_frame.paragraphs:
+                for run in para.runs:
+                    if "@@" in run.text:
+                        run.text = re.sub(r"@@([^@·]+)", repl, run.text)
+                        n += 1
+    print("cross refs filled:", n)
+
+
+TITLE_INDEX = build_title_index()
+fill_cross_refs(TITLE_INDEX)
+
+# ============ 目录页范围自动回填 ============
+def fill_toc_ranges():
+    """按每页页脚的章节名归并连续区间，回填目录页 Pxx - Pxx——增删页面后无需手工重排。"""
+    raw = []
+    for i, s in enumerate(prs.slides, 1):
+        ch, is_cover = None, False
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            t = sh.text_frame.text
+            if t.startswith("Coding Agent 工程实践 · "):
+                ch = t.split("· ", 1)[1].strip()
+            if t.startswith("CHAPTER "):
+                is_cover = True
+        raw.append((i, ch, is_cover))
+    # 章节扉页没有页脚，归属给它后面那一章
+    seq = []
+    for k, (i, ch, is_cover) in enumerate(raw):
+        if ch:
+            seq.append((ch, i))
+        elif is_cover:
+            nxt = next((c for _, c, _ in raw[k + 1:] if c), None)
+            if nxt:
+                seq.append((nxt, i))
+    ranges = []
+    for ch, pg in seq:
+        if ranges and ranges[-1][0] == ch:
+            ranges[-1][2] = pg
+        else:
+            ranges.append([ch, pg, pg])
+    ranged = [r for r in ranges if r[0] != "目录"]
+    idx = 0
+    for sh in prs.slides[1].shapes:
+        if not sh.has_text_frame or idx >= len(ranged):
+            continue
+        for para in sh.text_frame.paragraphs:
+            for run in para.runs:
+                if run.text.strip().startswith("P") and " - " in run.text:
+                    _, a, b = ranged[idx]
+                    run.text = "P%02d - P%02d" % (a, b)
+                    idx += 1
+    print("toc ranges filled:", idx, [r[0] for r in ranged])
+
+fill_toc_ranges()
+
+# ============ 演讲者备注：给讲师读的话一律放在这里，投影上看不到 ============
+PAGE_NOTES = {
+    "@封面": """开场钩子（两问，30 秒）：
+在座多少人已经在用 AI 写代码？——再问：多少人敢让它直接改一个横跨五个文件的真实需求？这个落差，就是今天要补的东西。
+
+三件事先说明白：
+① 不绑定工具：今天讲的方法，换任何一个 Agent 原样生效；
+② 结构：第 1 章定工具，第 2 章看真实效果，后四章讲方法；
+③ 随时打断提问。
+
+时间分配参考：第 1 章 15 分钟、第 2 章 10 分钟、第 3 章 10 分钟、第 4 章 25 分钟、第 5 章 25 分钟、第 6 章 15 分钟。时间紧就砍第 6 章最后两页。""",
+
+    "目录": """这一页别逐条念，停 20 秒。
+
+主线一句话：先看有哪些工具 → 相信它真能做到 → 理解那条约束 → 单次任务的标准动作 → 上下文怎么搭 → 团队怎么起来。
+
+如果有人问“为什么不直接讲技巧”：技巧在第 4、5 章，但不先理解第 3 章那条约束，技巧只能靠背。""",
+
+    "@CH01": """这一章的目的不是让大家记住市占率，是接受两件事：
+① 排行榜半年换一遍，别把选型押在当期第一名；
+② 选型看的是「形态」与「合规边界」，不是品牌。
+
+提醒：本章不可避免地出现产品名（选型避不开），从第 3 章起不再出现任何产品名。""",
+
+    "全球格局：一个已经重排过的市场": """数字只念两个：90% 的人每周在用；七个月里两个翻倍、两个下滑（Claude Code 18%→39%，Codex 3%→16%；Copilot 29%→21%，Cursor 18%→12%）。
+
+其余让听众自己看条的长度，不要逐个念。
+
+有人追问时的补充：
+DeepSeek Harness，2026-08 开源，MIT，发布两周 GitHub 破 3 万星；Pi，2026-10 发布 1.0，MIT，极简终端智能体。两者都未进该调研口径。
+
+出处：JetBrains《Developer Ecosystem Survey 2026》，15,000+ 职业开发者，2026-05 至 07 田野期。""",
+
+    "国内格局：两种口径，且榜单会漏掉新人": """数据口径先声明：企业侧份额是 IDC《中国 AI 编程市场》报告的二手引用，个人侧是媒体引用口径。课前建议核一遍原始报告再讲。
+
+品牌注（有人问起就这么答）：ZCode 是智谱当前主推的编程智能体，CodeGeeX 是其早期的 IDE 插件品牌。
+
+这一页真正值钱的观察：MiniMax Code 与 MiMo Code 都直接基于开源 OpenCode 构建——连模型厂商都不自己写 harness。这句话直接引出下一页。""",
+
+    "开源路线：Harness 是可替换的那一层": """演示 ⑧：dsh › 液体处理平台 › main。可以在这里现场切过去跑一段：同一个模型，换一个 harness 就是另一个 Agent。
+
+⚠ 课前必做：dsh 目前是 v0.1 预览版，接口有破坏性变更。请提前确认现场环境能正常跑，并准备一个备选 demo，不要在课上翻车。
+
+留给观众的一句：模型是大脑，harness 是执行神经系统。""",
+
+    "五类形态：先认形态，再看品牌": """第 1 章的结论页之一。
+
+最容易讲错的地方：开源 / 自托管不是第六种形态，是可以叠加在任意形态上的另一条线——中间那条横带就是在提醒这个。
+
+现场互动：问“你们手上的工具属于哪一列？”答案通常集中在 IDE 插件和命令行两列，正好接下一页的三步漏斗。""",
+
+    "怎么选：三步，一步一句话": """按顺序讲三步，别跳。
+
+第 03 步「跑满两周」值得停顿：第一天的新鲜感会骗人，很多团队第一天就下结论，第二周推翻重选。
+
+收尾强调：工具统一的产出不是“选到最好的”，是“大家用同一个”——规则文件、技能库、钩子配置要沉淀在同一套工具上。
+
+衔接下一章：选定了工具，先看它在真实项目里做到过什么。""",
+
+    "@CH02": """这一章只有一张表，作用是建立信任，不要在这里讲方法。
+
+节奏：每段会话 60–90 秒，说清“当时要做什么”和“结果怎样”，点到为止。方法是后面几章的事。
+
+建议从 ① 开场（最朴素的用法，先立住印象），至少现场演示 ②（先出方案）和 ④（换上下文挑刺）。如果只够一段，选 ④——反差最大。""",
+
+    "八段真实会话：从最朴素的用法，到最严格的用法": (
+        "会话坐标（页面上刻意不写，避免把内部项目信息投影出去）。"
+        "顺序由表格自动生成，与表格逐行一致——从上往下就是讲课顺序：\n"
+        + "\n".join("%s %s → %s" % (no, re.split(r"[：，]", what)[0], loc) for no, what, _m, loc in demos)
+        + "\n\n① 是基线（最朴素的用法，先立住这个印象）；②③④ 连着在同一个通信协议库里讲完，不用中途切仓库；⑤⑥⑦ 在第二个项目；⑧ 在开源底座上。"
+    ),
+
+    "@CH03": """这一章回答“为什么这套方法有效”，而不是碰巧有用。讲慢一点，它是后面所有内容的父节点。
+
+听众里“用过”和“没用过”差别很大时，这一章对没用过的人更重要——它决定了他们会不会把后面的方法当成玄学。""",
+
+    "一个约束：上下文窗口是稀缺资源": """用 3–4 分钟讲，这是全场唯一的“物理规律”。
+
+三个现象用自己的经历印证，别照读：铺垫一句“有没有遇到过它越改越蠢、明明说过的约束它又违反？”——那就是窗口满了。
+
+推论一、推论二讲的是怎么省上下文，推论三讲的是怎么把上下文花对地方。三条推论都是后面所有做法的父节点，第 5 章会一层层展开。这里只留印象。
+
+【推论三怎么讲】页面上的“结构”“消解”是书面语，不要照读，翻成一句大白话：
+它做错了，你再解释一遍是最贵的做法——话说得越来越多，窗口越来越满，可它到底对不对，你仍然不知道。不如让它跑一次测试或编译，红就是红、绿就是绿，这个结论不用你描述，它自己会读。
+
+现场举例（任选一个，别两个都讲）：
+· 让它改完自己跑单测，把失败的 3 条原样贴回去，比你写三段“注意这里要怎样”有效得多。
+· 编译/类型报错：把报错原文丢给它，比你复述“大概是那个类型转换的问题”有效得多。
+
+一句话收口：解释是花钱买它的理解，验证是花钱买一个能判定的结论——同样消耗上下文，后者划算。
+
+常见质疑：“我就多说两句怎么了？”——一次两次没事，但这是每天几十次的习惯，而且解释到第三遍时，确定性基本不再上涨。""",
+
+    "一种心智：从“帮你写”到“替你做”": """核心句式让听众复述一遍：过去我在执行环节，现在我在边界环节和验收环节。
+
+最容易被挑战：有人说“它写得没我快”。用下方那句回应——评价交付工具要看是否省掉了整个下午，不是看打字速度。
+
+如果现场有管理者，这是他们最需要转变的一页。""",
+
+    "@CH04": """从这一章开始进实操，时间给够（建议 25 分钟）。每页都留一个“下周就能用”的动作。
+
+四页顺序：先给可运行的验证 → 把提示词改具体 → 单次任务的四步动作 → 大特性的采访式起手。""",
+
+    "第一条纪律：给它一个可运行的验证": """演示 ③：Zcode › StdCommuProtocol › minor · 消息 1–6（改完让它自己回头查一遍）。
+
+一句话概括本页：别让你自己成为验证回路。
+
+一定要强调“它的检查通过 ≠ 你的验收通过”，两者是不同层级，上线前仍需端到端确认——否则有人会把 AI 的自检当上线依据。
+
+四级闸门不必全用：L1 今天就能用，L4 是无人值守的前提。""",
+
+    "提示词改写：三组实战对照": """演示 ⑥：Zcode › V3 › main · 拉到底后第 3–4 条（给确定的设计图，而不是一句“做得好看点”）。
+
+三组对照，一组 40 秒。念“改写前”时带点调侃，听众会笑着认出自己。
+
+把自检句式留给观众：把“完成定义”盖住，如果你判断不了它算不算完成，它就不够具体。""",
+
+    "单次任务的标准动作": """演示 ②⑤⑦：
+② Zcode › StdCommuProtocol › minor · 倒数第 2–1 条
+⑤ Zcode › V3 › main · 倒数第 13–10 条
+⑦ Zcode › V3 › minor · 拉到底后第 5–9 条
+
+四步里最常被跳过的是「探索」——多数人第一句话就是“改一下这个函数”。
+
+右下角「何时跳过规划」一定要讲，否则听众会觉得这套流程太重、落不了地。""",
+
+    "大特性起手式：先让它采访你": """这一页现场效果最好。把那句邀请直接投出来让大家抄：
+“我想构建 X。请详细采访我：技术实现、UI/UX、边界情况、顾虑与权衡。不问显而易见的，深挖我可能没考虑到的。”
+
+提醒：采访产出的规格必须落成文件。口头聊完直接开干等于没做，而且会同时污染上下文和代码。
+
+合格的规格三条：自包含、有边界、可验收。""",
+
+    "@CH05": """这一章是这门手艺的主体，建议 25 分钟以上，自底向上讲：规则 → 任务 → 能力 → 会话。
+
+开场锚点（下一页）那张五层图必须讲透，后面四页是逐层展开。""",
+
+    "上下文工程：这门手艺的主体": """锚点页。
+
+模型层已在第 3 章讲过，这里一句话带过，不要展开——听众会以为还要讲模型选型。
+
+留给观众记的一句：模型的差距是线性的，上下文结构的差距是乘性的。
+
+②③④ 三层是团队真正能动的，下面四页分别讲。""",
+
+    "规则层：把默契写进仓库": """全场最容易立刻执行的一页：今天就为自己的主仓库写一份，控制在 100 行以内。
+
+让听众记住这句：每一行都问一遍“删掉这行会让它犯错吗？”答不上来就删。
+
+提前点破误区：把代码规范、API 文档、逐文件描述全塞进去——那会把真正重要的指令淹没。
+
+右侧排错指南可以现场用：已经写了规则文件还踩坑的，按这三行自查。""",
+
+    "任务层：把提示词写具体": """演示 ⑤：Zcode › V3 › main · 倒数第 13–10 条（同事改了同一个项目，问题不一定是 AI 引入的）。
+
+四种策略各给一个例子就够。重点是右下角「任务简报四要素」——这是听众能直接照着写的模板。
+
+别讲成一刀切：探索期可以用模糊提示找灵感，交付期必须给出可判定的验收。""",
+
+    "能力层：五种扩展机制，别选错工具": """一句话区分：技能 = 共享内容（加载进主窗口），子智能体 = 隔离消耗（独立上下文，只回传摘要）。
+
+选错的代价要讲清楚：把重型调研直接放进主对话，窗口就是这么被悄悄吃掉的——很多人不知道自己为什么中途变蠢了。
+
+五种机制的细节留给资料，台上只讲这一对。""",
+
+    "渐进式搭建：让问题触发配置": """这一页回答“我是不是得先把这些全配好”——不用。每个机制都有一个可识别的触发信号。
+
+最好用的一条：同一段开场提示词你打第三遍了 → 存成技能。几乎人人都有过。
+
+右侧竖排那句是本页主旨：配置顺序由问题决定，先有问题，再有配置。""",
+
+    "会话层：上下文治理": """硬规则必须讲：同一问题上纠正了两次 → 立刻清理上下文重开会话。很多人舍不得丢那段历史。
+
+⚠ 必须强调：检查点只追踪编辑工具产生的改动，不能替代 git。否则真有人拿它当版本管理。
+
+「会话当分支」是最容易被忽略的好习惯：每条工作流一个命名会话（如 oauth-migration），跨天继续不用重讲背景。""",
+
+    "@CH06": """最后一章回答：怎么从“一个人在用”走到“整个团队在用”。顺序不能反——先画笼子，再放大产出。
+
+听众里没有管理者可以压到 10 分钟；有管理者在场就按 15 分钟讲，落地路线那页多停一会。""",
+
+    "权限：先画笼子，再放它出去": """开场那个场景要演出来：“每次都弹窗确认，点过第十次你就不再是审查，只是在点。”很多人会笑，因为那就是他们。
+
+四种模式不必全讲，挑贵公司实际会用的两种展开。
+
+沙箱隔离那四条底线是安全 / 合规同事唯一真正关心的，如果他们到场，这里多停两分钟。""",
+
+    "规模化：从一个 Agent 到一条流水线": """演示 ④：Zcode › StdCommuProtocol › main · 消息 3–9（换一个全新上下文做对抗式审查）。
+
+Writer / Reviewer 那段强烈建议现场演：同一个需求开两个会话，一个写一个审，效果最直观。
+
+⚠ 提醒防过度工程：被命令“找缺口”的评审者几乎必然报出缺口。要明确只标记影响正确性的问题，其余视为可选。""",
+
+    "七个高频失败模式与修正": """左边七条不必逐条念，停 5 秒让大家自己扫。
+
+真正要讲是右边那四条自查顺序——七条里八成问题落在其中一条。
+
+态度问题：把这些失败归到“工作方法”，而不是“工具不行”。这是听众今天要带走的立场。""",
+
+    "团队落地：90 天，三个阶段": """这页是给 leader 看的。
+
+每个阶段的「判定」比「时间表」重要：判定不过，就不要进下一阶段。
+
+四个指标重点讲最后一个（端到端时长）：唯一能证明整体更快的指标；“生成了多少代码”会奖励错误行为。""",
+
+    "@结束": """收尾不要讲新东西。
+
+重复那句核心：方法对了，换一个 Agent 也是同样的效果——今天讲的没有一句绑定工具。
+
+让大家把「本周就能开始的三件事」真的写下来，不是听完就算。
+
+留 5 分钟提问。常见提问预案：
+① “公司不让代码出网怎么办” → 第 6 页开源路线；
+② “我们已经在用某某工具” → 第 8 页三步漏斗；
+③ “没人愿意写规则文件” → 第 21 页，先从排错那三条开始收。""",
+}
+
+
+def fill_notes():
+    """把讲师要读的话写进备注栏——按页面主标题匹配，增删页面后不会错位。"""
+    n = 0
+    for i, s in enumerate(prs.slides, 1):
+        key = None
+        for sh in s.shapes:
+            if not sh.has_text_frame:
+                continue
+            t = sh.text_frame.text.strip()
+            if t.startswith("CHAPTER "):
+                key = "@CH" + t.split()[1]
+                break
+            if t.startswith("UNIVERSAL METHODOLOGY"):
+                key = "@封面"
+                break
+            if t.startswith("本周就能开始的三件事"):
+                key = "@结束"
+                break
+        if key is None:  # 内容页：用页标题（唯一字号 27pt）
+            for sh in s.shapes:
+                if not sh.has_text_frame:
+                    continue
+                for para in sh.text_frame.paragraphs:
+                    for run in para.runs:
+                        if run.font.size and abs(run.font.size.pt - TITLE_PT) < 0.6:
+                            key = sh.text_frame.text.strip()
+                            break
+                    if key:
+                        break
+                if key:
+                    break
+        if key in PAGE_NOTES:
+            s.notes_slide.notes_text_frame.text = PAGE_NOTES[key]
+            n += 1
+        else:
+            print("  (no notes for page %d: %r)" % (i, key))
+    print("speaker notes filled:", n)
+
+
+def check_overflow():
+    """自检：结论卡的文字按雅黑度量估算行数，超出卡片高度就报警。"""
+    try:
+        from PIL import ImageFont
+    except Exception:
+        return
+    fp = "C:/Windows/Fonts/msyh.ttc"
+    if not os.path.exists(fp):
+        return
+    src = open(os.path.abspath(__file__), encoding="utf-8").read()
+    cache = {}
+
+    def font(pt):
+        k = int(round(pt * 96 / 72))
+        if k not in cache:
+            cache[k] = ImageFont.truetype(fp, k)
+        return cache[k]
+
+    def lines_of(text, size, boxw):
+        f = font(size)
+        n, cur = 1, 0.0
+        for ch in text:
+            w = f.getlength(ch)
+            if cur + w > boxw:
+                n += 1
+                cur = w
+            else:
+                cur += w
+        return n
+
+    bad = 0
+    for fn, padw, padh, ls, dsz in [("judge_card", 48, 58, 1.6, 17.5),
+                                    ("bottom_judge", 132, 16, 1.45, 15.5)]:
+        pat = fn + r'\(\s*\w+\s*,\s*(\d+),\s*(\d+),\s*(\d+),\s*(\d+),\s*"([^"]+)"\s*(?:,\s*([\d.]+))?\s*\)'
+        for m in re.finditer(pat, src):
+            y, w, h, text = int(m.group(2)), int(m.group(3)), int(m.group(4)), m.group(5)
+            sz = float(m.group(6)) if m.group(6) else dsz
+            pt = sz * 0.75
+            n = lines_of(text, pt, w - padw)
+            need = n * pt * 1.32 * ls * 96 / 72
+            box = h - padh
+            if need > box:
+                bad += 1
+                print("  [OVERFLOW] %s y=%d 需要 %.0fpx / 可用 %.0fpx（%d 行）— %s"
+                      % (fn, y, need, box, n, text[:24]))
+    print("judge overflow check:", bad, "处溢出" if bad else "clean")
+
+
+fill_notes()
+check_overflow()
 
 prs.save(OUT)
 print("saved:", OUT, os.path.getsize(OUT), "bytes, slides:", len(prs.slides.__iter__.__self__._sldIdLst))
