@@ -37,7 +37,7 @@ TBL_BG = RGBColor(0x14, 0x1F, 0x30)
 
 CN = "Microsoft YaHei"
 MONO = "Consolas"
-TOTAL = 23
+TOTAL = 29
 
 
 def emu(px):
@@ -155,10 +155,12 @@ def header(slide, title, sub, accent=None):
     tb(slide, 136, 72, 1000, 26, [[(sub, dict(size=16, color=MUT55))]])
 
 
-def footer(slide, chapter, page):
+def footer(slide, chapter):
+    """页码按幻灯片实际位置自动计算——插入或删除页面后无需手工重编号。"""
+    n = len(prs.slides._sldIdLst)
     rect(slide, 64, 688, 12, 12, fill=TEAL_BG2, line=TEAL_BR, radius=2)
     tb(slide, 88, 684, 700, 22, [[("Coding Agent 工程实践 · " + chapter, dict(size=14, color=MUT50))]])
-    tb(slide, 1000, 684, 216, 22, [[(page, dict(size=14, color=TEAL, font=MONO))]], align=PP_ALIGN.RIGHT)
+    tb(slide, 1000, 684, 216, 22, [[("%02d / %d" % (n, TOTAL), dict(size=14, color=TEAL, font=MONO))]], align=PP_ALIGN.RIGHT)
 
 
 def judge_card(slide, x, y, w, h, text, size=17.5):
@@ -214,25 +216,196 @@ s = new_slide(prs)
 tb(s, 64, 30, 400, 46, [[("目录", dict(size=36, bold=True))]])
 hline(s, 64, 82, 56, TEAL, 3)
 rect(s, 64, 160, 6, 120, fill=TEAL)
-tb(s, 64, 300, 300, 80, [[("四个问题，", dict(size=24, bold=True))], [("一条方法论主线", dict(size=24, bold=True))]], line_spacing=1.4)
-tb(s, 64, 392, 300, 130, [[("不绑定任何一款工具——换一个 Agent，这套方法原样生效。每一章回答一个你下周就会遇到的问题。", dict(size=16, color=MUT55))]], line_spacing=1.7)
+tb(s, 64, 300, 300, 80, [[("五个问题，", dict(size=24, bold=True))], [("一条方法论主线", dict(size=24, bold=True))]], line_spacing=1.4)
+tb(s, 64, 392, 300, 130, [[("第 1 章先解决“用哪个”，其余四章讲方法。不绑定任何一款工具——换一个 Agent，这套方法原样生效。", dict(size=16, color=MUT55))]], line_spacing=1.7)
 toc = [
-    ("01", "认知篇 · 一个约束与一种心智", "为什么这套方法有效，而不是碰巧有用？", "P03 - P05"),
-    ("02", "方法篇 · 单次任务的标准动作", "一个需求从提出到合入，每步该怎么做？", "P06 - P10"),
-    ("03", "工程篇 · 上下文工程四层", "产出质量的差距，到底从哪一层来？", "P11 - P17"),
-    ("04", "规模化篇 · 权限、并行与落地", "如何从一个人快，走到整个团队快？", "P18 - P22"),
+    ("01", "选型篇 · 市场、形态与怎么选", "现在有哪些工具，我该用哪个？", "P03 - P08"),
+    ("02", "认知篇 · 一个约束与一种心智", "为什么这套方法有效，而不是碰巧有用？", "P09 - P11"),
+    ("03", "方法篇 · 单次任务的标准动作", "一个需求从提出到合入，每步该怎么做？", "P12 - P16"),
+    ("04", "工程篇 · 上下文工程四层", "产出质量的差距，到底从哪一层来？", "P17 - P23"),
+    ("05", "规模化篇 · 权限、并行与落地", "如何从一个人快，走到整个团队快？", "P24 - P28"),
 ]
 for i, (no, title, q, pg) in enumerate(toc):
-    y = 140 + i * 124
-    rect(s, 420, y, 796, 110, fill=CARD, line=CARD_BR, radius=10)
-    tb(s, 448, y + 30, 70, 46, [[(no, dict(size=30, bold=True, color=TEAL if i == 2 else BLUE, font=MONO))]])
-    tb(s, 530, y + 22, 560, 32, [[(title, dict(size=22, bold=True))]])
-    tb(s, 530, y + 60, 560, 26, [[(q, dict(size=16, color=MUT55))]])
-    tb(s, 1090, y + 44, 110, 24, [[(pg, dict(size=14, color=MUT50, font=MONO))]], align=PP_ALIGN.RIGHT)
-footer(s, "目录", "02 / %d" % TOTAL)
+    y = 132 + i * 102
+    rect(s, 420, y, 796, 96, fill=CARD, line=CARD_BR, radius=10)
+    tb(s, 448, y + 22, 70, 46, [[(no, dict(size=30, bold=True, color=TEAL if i == 3 else BLUE, font=MONO))]])
+    tb(s, 530, y + 14, 560, 32, [[(title, dict(size=22, bold=True))]])
+    tb(s, 530, y + 52, 560, 26, [[(q, dict(size=16, color=MUT55))]])
+    tb(s, 1090, y + 36, 110, 24, [[(pg, dict(size=14, color=MUT50, font=MONO))]], align=PP_ALIGN.RIGHT)
+footer(s, "目录")
 
-# ============ P03 扉页 认知篇 ============
-section_slide(prs, "01", os.path.join(A, "ch_cognition.png"), "g_ch01.png", "认知篇", "先理解约束，再使用方法",
+# ============ P03 扉页 选型篇 ============
+section_slide(prs, "01", os.path.join(A, "ch_landscape.png"), "g_ch00.png", "选型篇", "先看战场，再定工具",
+              "这一章只回答两件事：现在有什么、你该选哪个。后面四章讲的方法不依赖你选了谁——所以从第 2 章起，不再提任何产品名。")
+
+# ============ P04 全球格局 ============
+s = new_slide(prs)
+header(s, "全球格局：一个已经重排过的市场", "90% 的职业开发者每周都在用——座次却在七个月内换了一遍")
+rect(s, 64, 140, 700, 386, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 88, 156, 420, 26, [[("工作中使用率 · 2026 年 5–7 月", dict(size=18, bold=True))]])
+tb(s, 88, 184, 560, 22, [[("同一人可多选，故总和 > 100%；口径是“使用率”，不是营收份额", dict(size=12.5, color=MUT50))]])
+gl = [("Claude Code", 39, "1月 18%"), ("GitHub Copilot", 21, "1月 29%"), ("OpenAI Codex", 16, "1月 3%"),
+      ("Cursor", 12, "1月 18%"), ("JetBrains AI", 9, "1月 13%"), ("OpenCode", 7, "开源"),
+      ("Google Antigravity", 6, "印度 15%")]
+for i, (name, pct, note) in enumerate(gl):
+    y = 216 + i * 42
+    tb(s, 84, y, 152, 24, [[(name, dict(size=13.5, color=MUT85 if i == 0 else MUT72))]])
+    rect(s, 244, y + 4, 296, 18, fill=ROW_BG, radius=9)
+    rect(s, 244, y + 4, int(pct * 7.2), 18, fill=TEAL if i == 0 else BLUE, radius=9)
+    tb(s, 552, y, 60, 22, [[("%d%%" % pct, dict(size=14.5, bold=True, color=TXT if i == 0 else MUT78))]])
+    tb(s, 620, y + 2, 130, 22, [[(note, dict(size=11.5, color=MUT50, font=MONO))]])
+rect(s, 800, 140, 416, 168, fill=TEAL_BG, line=TEAL_BR, radius=10)
+tb(s, 824, 160, 380, 34, [[("90%", dict(size=32, bold=True, color=TEAL)), ("   每周至少用一次", dict(size=15, color=MUT78))]])
+tb(s, 824, 208, 380, 34, [[("68%", dict(size=32, bold=True, color=TEAL)), ("   每天都在用", dict(size=15, color=MUT78))]])
+tb(s, 824, 254, 380, 40, [[("样本 15,000+ 职业开发者，按地区与语言加权", dict(size=12.5, color=MUT68))]], line_spacing=1.4)
+judge_card(s, 800, 328, 416, 198, "七个月里两个翻倍、两个下滑。把选型押在今天的排名上，等于给半年后埋一次返工——选“能长跑的形态”，而不是“当期第一名”。", 16.5)
+rect(s, 64, 536, 1152, 76, fill=CARD, line=CARD_BR, radius=9)
+tb(s, 88, 546, 1108, 58, [[("数据来源：JetBrains《Developer Ecosystem Survey 2026》，15,000+ 职业开发者，2026-05 至 07 田野期；“1 月”为同年 1 月波次，用于对照七个月变化。", dict(size=12, color=MUT55))],
+                          [("未进该调研口径、但值得单独看：DeepSeek Harness（2026-08 开源，MIT，发布两周 GitHub 破 3 万星）、Pi（2026-10 发布 1.0，MIT 终端智能体）——都走“自托管 + 可换模型”的开源路线。", dict(size=12, color=MUT68))]], line_spacing=1.35)
+footer(s, "选型篇")
+
+# ============ P05 国内格局 ============
+s = new_slide(prs)
+header(s, "国内格局：两种口径，且榜单会漏掉新人", "“用的人最多”和“赚的钱最多”不是同一家——2026 下半年还有三家刚入场")
+rect(s, 64, 140, 370, 300, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 88, 156, 330, 26, [[("企业侧 · 收入份额", dict(size=17, bold=True))]])
+tb(s, 88, 184, 330, 22, [[("IDC 口径 · 2026 · 企业付费收入", dict(size=12, color=MUT50))]])
+ent = [("阿里 Qoder", 47.6), ("智谱 ZCode", 11.5), ("商汤 Raccoon", 10.5),
+       ("腾讯 CodeBuddy", 6.9), ("百度 文心快码", 6.0)]
+for i, (n, p) in enumerate(ent):
+    y = 214 + i * 40
+    tb(s, 84, y, 148, 24, [[(n, dict(size=12.5, color=MUT85 if i == 0 else MUT72))]])
+    rect(s, 236, y + 4, 150, 16, fill=ROW_BG, radius=8)
+    rect(s, 236, y + 4, max(6, int(p * 3.15)), 16, fill=TEAL if i == 0 else BLUE, radius=8)
+    tb(s, 394, y, 46, 22, [[("%.1f%%" % p, dict(size=12, color=MUT78))]])
+tb(s, 84, 400, 330, 32, [[("注：ZCode 是智谱当前主推的编程智能体，CodeGeeX 为其早期 IDE 插件品牌。", dict(size=11, color=MUT50))]], line_spacing=1.3)
+rect(s, 454, 140, 370, 300, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 478, 156, 330, 26, [[("个人侧 · IDE 使用率", dict(size=17, bold=True))]])
+tb(s, 478, 184, 330, 22, [[("媒体引用口径 · 2026 · 实际在用", dict(size=12, color=MUT50))]])
+per = [("字节 Trae", 41.2), ("阿里 通义灵码", 18.5), ("百度 文心快码", 12.3)]
+for i, (n, p) in enumerate(per):
+    y = 214 + i * 44
+    tb(s, 474, y, 148, 24, [[(n, dict(size=12.5, color=MUT85 if i == 0 else MUT72))]])
+    rect(s, 626, y + 4, 150, 16, fill=ROW_BG, radius=8)
+    rect(s, 626, y + 4, int(p * 3.64), 16, fill=TEAL if i == 0 else BLUE, radius=8)
+    tb(s, 784, y, 46, 22, [[("%.1f%%" % p, dict(size=12, color=MUT78))]])
+tb(s, 474, 360, 330, 70, [[("文心快码服务 800 万+ 开发者；Cursor 中国区使用率一年内由 28% 降至 16%（JetBrains 2026）。", dict(size=11.5, color=MUT68))]], line_spacing=1.45)
+rect(s, 844, 140, 372, 300, fill=CARD, line=TEAL_BR, radius=10)
+tb(s, 868, 156, 330, 26, [[("榜单之外 · 2026 下半年新入场", dict(size=17, bold=True, color=TEAL))]])
+tb(s, 868, 184, 330, 22, [[("发布晚于榜单口径，份额尚未反映", dict(size=12, color=MUT50))]])
+new3 = [
+    ("Kimi Code · 月之暗面", "2026-09 桌面端 1.0", "内置终端 / 浏览器 / Git，Plan · Swarm · Tower 多模式协作"),
+    ("MiniMax Code · 稀宇", "2026-06 随 M3 发布", "桌面客户端（多端），基于 OpenCode + Pi 构建，支持 Computer Use"),
+    ("MiMo Code · 小米", "2026-06 开源 MIT", "终端原生，fork 自 OpenCode；持久记忆 + Compose 模式"),
+]
+for i, (n, t, d) in enumerate(new3):
+    y = 212 + i * 74
+    tb(s, 864, y, 336, 22, [[(n, dict(size=13.5, bold=True, color=TEAL))]])
+    tb(s, 864, y + 22, 336, 20, [[(t, dict(size=11.5, color=MUT55, font=MONO))]])
+    tb(s, 864, y + 42, 336, 34, [[(d, dict(size=11.5, color=MUT72))]], line_spacing=1.35)
+judge_card(s, 64, 456, 740, 176, "国内“用的人多”和“赚的钱多”是两件事，份额榜单还会漏掉刚入场的人。更值得注意的是：MiniMax Code 与 MiMo Code 都直接基于开源 OpenCode 构建——模型厂商也不自己写 harness，而是 fork 开源 harness 再叠自己的模型。选型别看份额，看合规边界、工具链与自主权。", 16)
+rect(s, 820, 456, 396, 176, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 844, 472, 340, 26, [[("数据来源与可信度", dict(size=16.5, bold=True, color=BLUE))]])
+tb(s, 844, 506, 350, 118, [[("份额为 IDC《中国 AI 编程市场》报告的二手引用；新入场三家信息来自 2026-06 至 09 的官方发布与公开报道，份额数据尚未覆盖。演讲前建议核对原始报告。", dict(size=12.5, color=MUT68))]], line_spacing=1.5)
+footer(s, "选型篇")
+
+# ============ P06 开源路线 ============
+s = new_slide(prs)
+header(s, "开源路线：Harness 是可替换的那一层", "MIT 许可、可自托管、可换模型——同一个模型，换一个 harness 就是另一个 Agent")
+projs = [
+    ("DeepSeek Harness (dsh)", "插件化运行底座",
+     [("许可 / 状态", "MIT · v0.1 预览版"), ("架构", "一切皆插件 · Cordis 内核"),
+      ("上下文", "追加式事件流 · 自动压缩"), ("沙箱", "内置，可热插拔"),
+      ("代价", "接口仍有破坏性变更")]),
+    ("Pi", "极简终端智能体",
+     [("许可 / 状态", "MIT · 1.0 已发布"), ("架构", "只给 read/write/edit/bash"),
+      ("上下文", "系统提示约 2–3k token"), ("沙箱", "无，依赖外部环境"),
+      ("代价", "官方明确不做子代理")]),
+    ("OpenCode", "终端优先的全能选手",
+     [("许可 / 状态", "MIT · 社区规模最大"), ("架构", "配置化工具 + MCP 外接"),
+      ("上下文", "支持 75+ 模型提供方"), ("沙箱", "进程隔离 C/S 架构"),
+      ("代价", "系统提示约 10k token")]),
+]
+for i, (name, tag, rows) in enumerate(projs):
+    x = 64 + i * 391
+    rect(s, x, 140, 370, 250, fill=CARD, line=CARD_BR, radius=10)
+    tb(s, x + 18, 150, 334, 26, [[(name, dict(size=17, bold=True, color=TEAL))]])
+    tb(s, x + 18, 178, 334, 22, [[(tag, dict(size=13, color=MUT68))]])
+    hline(s, x + 18, 204, 334, CARD_BR, 1)
+    for j, (k, v) in enumerate(rows):
+        y = 214 + j * 33
+        tb(s, x + 18, y, 96, 22, [[(k, dict(size=12, color=MUT55))]])
+        tb(s, x + 104, y, 248, 30, [[(v, dict(size=12.5, color=TXT))]], line_spacing=1.3)
+rect(s, 64, 404, 520, 100, fill=BLUE_BG, line=BLUE_BR, radius=10)
+tb(s, 88, 416, 480, 26, [[("Model + Harness = Agent", dict(size=19, bold=True, color=BLUE, font=MONO))]])
+tb(s, 88, 448, 480, 50, [[("模型是大脑，harness 是执行神经系统：上下文怎么管、怎么隔离、工具怎么调度，都由 harness 决定。", dict(size=13.5, color=TXT))]], line_spacing=1.45)
+rect(s, 604, 404, 612, 100, fill=CARD, line=CARD_BR, radius=10)
+tb(s, 628, 416, 580, 24, [[("还有这些（同为可自托管 / 可换模型）", dict(size=15, bold=True, color=TEAL))]])
+tb(s, 628, 446, 580, 50, [[("Cline（VS Code，逐操作审批）· OpenHands（自主 + 沙箱）· Aider（git 原生）· Goose（MCP 原生）· Codex CLI / Gemini CLI（厂商开源）", dict(size=13, color=MUT78))]], line_spacing=1.45)
+for (bx, bw, bcol, btitle, items, itcol) in [
+        (64, 566, TEAL, "该走开源路线的信号", ["代码与数据不能出网（合规 / 数据本地化）",
+         "必须能换模型，不愿被单一厂商绑定", "规模上来后，按席位计费成本线性增长"], TEAL),
+        (650, 566, MUT55, "代价：开源 ≠ 省事", ["要自己搭建、维护与升级，没有厂商兜底",
+         "早期版本接口不稳，生产环境慎用", "参数与状态随版本快速变化，选型前以仓库为准"], MUT50)]:
+    rect(s, bx, 520, bw, 110, fill=CARD, line=CARD_BR, radius=10)
+    tb(s, bx + 24, 532, 520, 24, [[(btitle, dict(size=16, bold=True, color=bcol))]])
+    for i, t in enumerate(items):
+        y = 566 + i * 22
+        rect(s, bx + 24, y + 7, 8, 8, fill=itcol, radius=4)
+        tb(s, bx + 40, y, 500, 20, [[(t, dict(size=13, color=MUT85 if bcol == TEAL else MUT68))]])
+footer(s, "选型篇")
+
+# ============ P07 五类形态 ============
+s = new_slide(prs)
+header(s, "五类形态：先认形态，再看品牌", "形态决定能力边界，品牌只决定细节")
+rect(s, 64, 140, 1152, 364, fill=CARD, line=CARD_BR, radius=10)
+for (x, w), h in zip([(80, 180), (268, 210), (486, 280), (774, 350)], ["形态", "代表产品", "擅长", "代价 / 边界"]):
+    tb(s, x, 152, w, 24, [[(h, dict(size=13.5, bold=True, color=MUT55))]])
+hline(s, 80, 180, 1120, CARD_BR, 1)
+forms = [
+    ("IDE 插件", "Copilot · 通义灵码 · CodeBuddy", "嵌入现有编辑器：补全、解释、局部重构，零迁移成本", "受编辑器边界约束；跨文件长任务与流水线能力弱"),
+    ("命令行智能体", "Pi · Claude Code · Codex CLI · OpenCode", "直接操作仓库与终端，易脚本化，可无头进 CI", "无可视化界面；上手曲线陡；长任务要自己治理上下文"),
+    ("编辑器内核分叉", "Cursor · Trae", "编辑器与智能体深度耦合，既有配置可一键迁移", "团队工具链被锁定；版本节奏跟随厂商"),
+    ("桌面工作台", "腾讯 WorkBuddy · Qoder 工作台", "一人指挥多个专家智能体并行，适合复杂需求", "上下文与 token 消耗高；可复现性与可控性挑战"),
+    ("云端智能体平台", "Codex Cloud · Antigravity · Qoder 云端", "任务在云端异步跑完，直接交付 PR，人不盯屏", "代码与上下文出网，需过合规；结果可控性最低"),
+]
+for i, row in enumerate(forms):
+    y = 190 + i * 62
+    if i % 2 == 0:
+        rect(s, 72, y, 1136, 56, fill=ROW_BG, radius=6)
+    tb(s, 80, y + 14, 180, 28, [[(row[0], dict(size=15, bold=True, color=TEAL))]])
+    tb(s, 268, y + 6, 210, 46, [[(row[1], dict(size=12, color=MUT65))]], line_spacing=1.3)
+    tb(s, 486, y + 6, 280, 46, [[(row[2], dict(size=12.5, color=MUT85))]], line_spacing=1.35)
+    tb(s, 774, y + 6, 350, 46, [[(row[3], dict(size=12.5, color=MUT68))]], line_spacing=1.35)
+rect(s, 64, 516, 1152, 56, fill=CARD, line=TEAL_BR, radius=9)
+tb(s, 88, 528, 1104, 36, [[("可叠加的另一条线（见上页）· 开源、可自托管、可换模型：", dict(size=13.5, bold=True, color=TEAL)),
+    ("DeepSeek Harness · Pi · OpenCode · Cline · OpenHands —— 与下面任何一种形态都能组合", dict(size=13.5, color=MUT78))]], line_spacing=1.35)
+bottom_judge(s, 64, 588, 1152, 64, "先看「跑在哪、怎么接入」定形态；要不要开源 / 自托管是另一条线，可叠加——两个维度各自独立，别混在一起比。", 16)
+footer(s, "选型篇")
+
+# ============ P08 选型路径与本课立场 ============
+s = new_slide(prs)
+header(s, "怎么选：三步，一步一句话", "先划掉不能用的，再按工作方式定形态，最后用真实任务验证")
+steps = [
+    ("01", TEAL, "排除 · 把不能用的先划掉",
+     "代码不能出网 → 不用云端平台；必须自托管 / 可换模型 → 只走开源路线；深度绑定某个 IDE → 优先该 IDE 的插件或内核分叉"),
+    ("02", BLUE, "定形态 · 你要它替你做到哪一步",
+     "只要补全与解释 → IDE 插件；要它自己跑完并自验 → 命令行 或 桌面工作台；要它异步跑完直接交 PR → 云端平台"),
+    ("03", TEAL, "验证 · 同类里挑哪个，别靠感觉",
+     "同一批真实任务 + 同一套可运行验收（跑测试 / 跑构建），跑满两周再定——第一天的新鲜感会骗人"),
+]
+for i, (no, col, sub, body) in enumerate(steps):
+    y = 150 + i * 100
+    rect(s, 64, y, 1152, 88, fill=CARD, line=CARD_BR, radius=10)
+    rect(s, 64, y, 6, 88, fill=col, radius=3)
+    tb(s, 96, y + 22, 90, 28, [[(no, dict(size=20, bold=True, color=col, font=MONO))]])
+    tb(s, 190, y + 16, 420, 24, [[(sub, dict(size=15, bold=True))]])
+    tb(s, 190, y + 46, 1000, 32, [[(body, dict(size=13.5, color=MUT78))]], line_spacing=1.35)
+bottom_judge(s, 64, 470, 1152, 126, "统一比最优重要：团队选型的产出不是「选到最好的那个」，而是「大家用同一个」——规则文件、技能库、钩子配置都要沉淀在同一套工具上。从第 2 章起全篇不提产品名，后面四章的方法不依赖你选了谁。", 17)
+footer(s, "选型篇")
+
+# ============ P08 扉页 认知篇 ============
+section_slide(prs, "02", os.path.join(A, "ch_cognition.png"), "g_ch01.png", "认知篇", "先理解约束，再使用方法",
               "方法论不解释“为什么”，就只能靠记忆。理解这一个约束，后面所有做法都是它的推论——你不需要背清单。")
 
 # ============ P04 第一性原理 ============
@@ -262,7 +435,7 @@ for i, (t, d) in enumerate(coro):
 rect(s, 830, 310, 4, 88, fill=BLUE)
 tb(s, 848, 306, 368, 100, [[("上下文窗口装着整场对话：你的每条消息、它读过的每个文件、每条命令的输出。", dict(size=15.5, color=MUT72))]], line_spacing=1.6)
 judge_card(s, 830, 432, 386, 192, "看不见的约束无法被管理——先让上下文占用始终可见（状态栏、用量显示），再谈优化。这和性能工程里“不上监控不谈调优”是同一回事。", 16.5)
-footer(s, "认知篇", "04 / %d" % TOTAL)
+footer(s, "认知篇")
 
 # ============ P05 心智模型 ============
 s = new_slide(prs)
@@ -293,10 +466,10 @@ for i, (lab, old, new) in enumerate(roles):
     tb(s, 804, y + 33, 392, 20, [[("过去 · ", dict(size=13, bold=True, color=MUT55)), (old[5:], dict(size=13, color=MUT68))]])
     tb(s, 804, y + 56, 392, 38, [[("现在 · ", dict(size=13, bold=True, color=TEAL)), (new[5:], dict(size=13, color=TXT))]], line_spacing=1.4)
 judge_card(s, 780, 518, 436, 142, "站在执行环节评价交付工具，是最常见的认知错位——用“写得不如我快”去衡量一个该用“是否省掉了整个下午”来判断的东西。", 15.5)
-footer(s, "认知篇", "05 / %d" % TOTAL)
+footer(s, "认知篇")
 
 # ============ P06 扉页 方法篇 ============
-section_slide(prs, "02", os.path.join(A, "ch_landscape.png"), "g_ch02.png", "方法篇", "一次需求，四个标准动作",
+section_slide(prs, "03", os.path.join(A, "ch_landscape.png"), "g_ch02.png", "方法篇", "一次需求，四个标准动作",
               "给可运行的验证、先探索再编码、让它采访你、规格先行——四件事，把“玄学体验”变成“稳定产出”。")
 
 # ============ P07 第一条纪律 (Hero) ============
@@ -325,7 +498,7 @@ for i, (t, d) in enumerate(gates):
     rect(s, 660, y, 4, 80, fill=TEAL if i >= 2 else BLUE)
     tb(s, 686, y + 12, 500, 24, [[(t, dict(size=16, bold=True, color=TEAL if i >= 2 else TXT))]])
     tb(s, 686, y + 40, 510, 34, [[(d, dict(size=13.5, color=MUT72))]], line_spacing=1.4)
-footer(s, "方法篇", "07 / %d" % TOTAL)
+footer(s, "方法篇")
 
 # ============ P08 提示词改写实战 ============
 s = new_slide(prs)
@@ -348,7 +521,7 @@ for i, (tag, bad, good) in enumerate(pairs):
     tb(s, 684, y + 14, 300, 22, [[("✓  改写后 · " + tag, dict(size=14, bold=True, color=TEAL))]])
     tb(s, 684, y + 42, 508, 74, [[(good, dict(size=14.5, color=TXT))]], line_spacing=1.45)
 bottom_judge(s, 64, 606, 1152, 52, "一句话自检：把“完成定义”盖住——如果你无法判断这部分是否算完成，它就还不够具体。")
-footer(s, "方法篇", "08 / %d" % TOTAL)
+footer(s, "方法篇")
 
 # ============ P09 工作流四阶段 ============
 s = new_slide(prs)
@@ -373,7 +546,7 @@ tb(s, 88, 422, 510, 66, [[("直接做：", dict(size=14.5, bold=True, color=TEAL
 tb(s, 88, 492, 510, 66, [[("值得规划：", dict(size=14.5, bold=True, color=BLUE)), ("你对方案不确定 / 改动横跨多文件 / 你不熟悉被改的那部分代码。", dict(size=14.5, color=MUT72))]], line_spacing=1.5)
 tb(s, 88, 562, 510, 48, [[("判据：一句话能描述清楚的 diff，就不要上仪式。", dict(size=14.5, color=TXT))]], line_spacing=1.5)
 judge_card(s, 660, 370, 556, 252, "规划的成本是固定的，收益取决于“做错方向的概率”——用它对冲高不确定性，而不是给每个任务都上流程。探索错了，损失几轮对话；在错误方向写完 800 行再被发现，损失的是你的信任和一下午。", 17)
-footer(s, "方法篇", "09 / %d" % TOTAL)
+footer(s, "方法篇")
 
 # ============ P10 让 Agent 采访你 ============
 s = new_slide(prs)
@@ -402,10 +575,10 @@ for i, (t, d) in enumerate(spec_pts):
     rect(s, 684, y + 4, 10, 10, fill=TEAL, radius=5)
     tb(s, 704, y - 2, 480, 44, [[(t + " · ", dict(size=14.5, bold=True, color=TXT)), (d, dict(size=14, color=MUT72))]], line_spacing=1.45)
 judge_card(s, 660, 388, 556, 240, "口述需求、边做边改，会让每一次口头纠偏同时污染上下文与代码——规格未固化就开工，是最高频的失败模式之一。把规格写精确所花的时间，回报高于你盯着它实现所花的时间。", 17)
-footer(s, "方法篇", "10 / %d" % TOTAL)
+footer(s, "方法篇")
 
 # ============ P11 扉页 工程篇 ============
-section_slide(prs, "03", os.path.join(A, "ch_practice.png"), "g_ch03.png", "工程篇", "产出差距在上下文结构，不在模型",
+section_slide(prs, "04", os.path.join(A, "ch_practice.png"), "g_ch03.png", "工程篇", "产出差距在上下文结构，不在模型",
               "同一个模型，在不同团队手里产出天差地别。差距来自四层：规则怎么沉淀、任务怎么写、能力怎么扩展、会话怎么治理。自底向上讲。")
 
 # ============ P12 上下文工程四层 (Hero) ============
@@ -431,7 +604,7 @@ tb(s, 800, 152, 416, 130, [[("同一个模型，在不同团队手里产出天�
 rect(s, 800, 306, 4, 88, fill=BLUE)
 tb(s, 818, 306, 398, 96, [[("模型的差距是线性的，上下文结构的差距是乘性的。", dict(size=15.5, color=MUT72))]], line_spacing=1.6)
 judge_card(s, 800, 440, 416, 190, "模型决定下限，上下文结构决定上限。换模型不如补上下文——这是这门课最值钱的一句话。", 17.5)
-footer(s, "工程篇", "12 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P13 规则层 ============
 s = new_slide(prs)
@@ -463,7 +636,7 @@ for i, (a, b) in enumerate(debugs):
     tb(s, 764, y, 220, 32, [[(a, dict(size=13.5, color=MUT78))]])
     tb(s, 976, y, 224, 32, [[(b, dict(size=13.5, color=TEAL))]])
 judge_card(s, 740, 470, 476, 158, "把它当代码对待：出问题就审查、定期修剪、用“行为是否真的改变”验证改动。纳入 git 团队共建——这份文件的价值随时间复利增长。", 16)
-footer(s, "工程篇", "13 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P14 任务层 ============
 s = new_slide(prs)
@@ -501,7 +674,7 @@ for i, (t, d) in enumerate(elems):
     tb(s, x, y, 250, 22, [[(t, dict(size=14.5, bold=True, color=TEAL, font=MONO))]])
     tb(s, x, y + 24, 250, 30, [[(d, dict(size=12.5, color=MUT72))]], line_spacing=1.35)
 bottom_judge(s, 64, 546, 1152, 76, "明确程度与任务确定性成正比：探索期可以用模糊提示找灵感（“你觉得这个文件有哪些可改进？”），交付期必须给出可判定的验收。")
-footer(s, "工程篇", "14 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P15 能力层：选型 ============
 s = new_slide(prs)
@@ -541,7 +714,7 @@ tb(s, 854, 166, 340, 26, [[("最易混淆的一对", dict(size=17, bold=True))]]
 tb(s, 854, 202, 340, 62, [[("技能 = ", dict(size=14, bold=True, color=TEAL)), ("可复用内容，加载进你的主窗口", dict(size=14, color=MUT78))]], line_spacing=1.45)
 tb(s, 854, 268, 340, 62, [[("子智能体 = ", dict(size=14, bold=True, color=BLUE)), ("隔离执行者，独立上下文，只回传摘要", dict(size=14, color=MUT78))]], line_spacing=1.45)
 judge_card(s, 830, 366, 386, 260, "内容由技能承载，消耗由子智能体隔离。分不清这一对，等于把全部调研成本压在自己的主上下文里——窗口就是这么被悄悄吃掉的。", 16.5)
-footer(s, "工程篇", "15 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P16 能力层：渐进式搭建 ============
 s = new_slide(prs)
@@ -569,7 +742,7 @@ tb(s, 1080, 170, 116, 380, [[("配", dict(size=30, bold=True, color=BLUE))], [("
     [("由", dict(size=30, bold=True, color=TEAL))], [("问", dict(size=30, bold=True, color=TEAL))],
     [("题", dict(size=30, bold=True, color=TEAL))], [("定", dict(size=30, bold=True, color=TEAL))]], line_spacing=1.5)
 bottom_judge(s, 64, 610, 1152, 52, "同样的信号也告诉你何时更新：一个反复出现的错误，应该是规则文件的一次编辑，而不是对话里的又一次口头纠正。")
-footer(s, "工程篇", "16 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P17 会话层 ============
 s = new_slide(prs)
@@ -593,10 +766,10 @@ for i, (t, d) in enumerate(govs):
     tb(s, 644, y + 12, 300, 26, [[(t, dict(size=16.5, bold=True))]])
     tb(s, 644, y + 42, 548, 46, [[(d, dict(size=13.5, color=MUT72))]], line_spacing=1.45)
 bottom_judge(s, 64, 574, 1152, 76, "最好的结果来自紧密的反馈循环，而不是完美的第一版提示词。发现跑偏立刻纠偏——这是用 Agent 和用搜索引擎的根本区别。", 15.5)
-footer(s, "工程篇", "17 / %d" % TOTAL)
+footer(s, "工程篇")
 
 # ============ P18 扉页 规模化篇 ============
-section_slide(prs, "04", os.path.join(A, "ch_rollout.png"), "g_ch04.png", "规模化篇", "先画笼子，再放大产出",
+section_slide(prs, "05", os.path.join(A, "ch_rollout.png"), "g_ch04.png", "规模化篇", "先画笼子，再放大产出",
               "先把一个智能体用得有效，再用并行、无头与流水线把产出成倍放大——顺序反了，只会把低效复制 N 份。")
 
 # ============ P19 权限与安全 ============
@@ -631,7 +804,7 @@ for i, (t, d) in enumerate(bottoms):
     tb(s, 684, y + 14, 500, 26, [[(t, dict(size=16.5, bold=True))]])
     tb(s, 684, y + 46, 510, 40, [[(d, dict(size=13.5, color=MUT72))]], line_spacing=1.4)
 bottom_judge(s, 660, 584, 556, 60, "便利来自权限，风险也来自权限——顺序不能颠倒。")
-footer(s, "规模化篇", "19 / %d" % TOTAL)
+footer(s, "规模化篇")
 
 # ============ P20 规模化路径 ============
 s = new_slide(prs)
@@ -658,7 +831,7 @@ for i, (who, what, c) in enumerate(wr):
     tb(s, 724, y, 180, 22, [[(who, dict(size=13, bold=True, color=c, font=MONO))]])
     tb(s, 724, y + 24, 468, 40, [[(what, dict(size=13, color=MUT78))]], line_spacing=1.4)
 judge_card(s, 700, 428, 516, 200, "全新上下文的评审者不会偏向自己刚写的代码——多会话最大的红利不是速度，是质量。⚠ 被命令“找缺口”的评审者几乎必然报出缺口：明确只标记影响正确性的问题，把其余视为可选，警惕过度工程。", 15.5)
-footer(s, "规模化篇", "20 / %d" % TOTAL)
+footer(s, "规模化篇")
 
 # ============ P21 七个失败模式 ============
 s = new_slide(prs)
@@ -702,7 +875,7 @@ for i, t in enumerate(diag):
     tb(s, 888, y, 300, 40, [[(t, dict(size=14.5, color=MUT85))]], line_spacing=1.4)
 tb(s, 888, 404, 300, 36, [[("八成问题落在其中一条。", dict(size=14, color=TEAL, bold=True))]])
 judge_card(s, 864, 470, 352, 156, "这些不是“工具不行”，而是工作方法问题——方法对了，换一个 Agent 也是同样的效果。", 16)
-footer(s, "规模化篇", "21 / %d" % TOTAL)
+footer(s, "规模化篇")
 
 # ============ P22 落地路线 ============
 s = new_slide(prs)
@@ -731,7 +904,7 @@ for i, (t, d) in enumerate(metrics):
     tb(s, 764, y + 12, 120, 28, [[(t, dict(size=16.5, bold=True, color=TEAL))]])
     tb(s, 764, y + 44, 428, 36, [[(d, dict(size=13, color=MUT72))]], line_spacing=1.4)
 judge_card(s, 740, 538, 476, 122, "只统计“生成了多少代码”会奖励错误行为——产出更多代码，从来不是工程目标。", 16)
-footer(s, "规模化篇", "22 / %d" % TOTAL)
+footer(s, "规模化篇")
 
 # ============ P23 结束页 (Hero) ============
 s = new_slide(prs)
